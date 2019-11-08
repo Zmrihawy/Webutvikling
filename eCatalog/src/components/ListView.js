@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
 import { TextInput } from 'react-native-paper';
 export default class ListView extends React.Component {
@@ -9,16 +9,26 @@ export default class ListView extends React.Component {
     
     render(){
         return (
-            <View style={styles.searchbar}>
-                <TextInput
-                    label='Search for a component ... '
-                    onChangeText={text => this.setState({ text })}
-                />
+            <View style={styles.margin}>
+                <View style={styles.center, styles.heading}>
+                    <Text style={styles.h1}>eCatalog</Text>
+                    <Text style={styles.small}>home for electronics</Text>
+                </View>
+                <View>
+                    <TextInput
+                        label='Search for a pc, mobile, TV ... '
+                        onChangeText={text => this.setState({ text })}
+                    />
+                </View>
             </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
-    searchbar: {margin: 30},
+    margin: {margin: 35},
+    h1: {color: 'white', fontSize: 28},
+    center: {alignItems: 'center'},
+    small: {fontSize: 10, color: 'white'},
+    heading: {margin: 10}
 });

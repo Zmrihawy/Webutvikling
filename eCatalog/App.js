@@ -1,33 +1,32 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import ListView from './src/components/ListView';
-
-// DefaultTheme for a theme
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 
 
 export default function App() {
   return (
-    <PaperProvider theme={theme} style={styles.body}>
+    <PaperProvider theme={theme}>
         <View style={styles.container}>
             <ListView />
-            <Text>This Works!</Text>
         </View>
     </PaperProvider>
   );
 }
 
+
+// Styles
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#000',
     // alignItems: 'center',
     // justifyContent: 'center',
   },
-  body: { margin: 10},
 });
 
 
+// DefaultTheme colors
 const theme = {
     ...DefaultTheme,
     roundness: 4,
