@@ -24,7 +24,7 @@ export default class ListView extends React.Component {
                 <View>
                     <Searchbar
                         placeholder='Search for a pc, mobile, TV ... '
-                        onChangeText={ text => this.setState({ firstQuery: query }) }
+                        onChangeText={ text => this.setState({ firstQuery: text }) }
                     />
                 </View>
                 <View style={styles.body}>
