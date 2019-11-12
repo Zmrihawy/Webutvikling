@@ -1,10 +1,23 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import ListView from './src/components/ListView';
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 
 
 export default function App() {
+
+  const [components, setComponents] = useState([]);
+
+  useEffect(() => {
+    console.log("fetching");
+    fetch('10.52.105.119:5000/api/component')
+      .then(res => {
+        console.log("fetched", res);
+        setComponents(res)
+      })
+      .catch(err => console.log("error", err))
+  },[components])
+
   return (
     <PaperProvider theme={theme}>
         <View style={styles.container}>
