@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView  } from 'react-native';
 import { Searchbar, List, Checkbox, Button } from 'react-native-paper';
 
+import Sidebar from './SideBar';
 
 export default ListView = (props) => {
     
     const { components } = props;
     const [expandedLists, setExpandedLists] = useState({});
     const [searchText, setSearchText] = useState("");
+    const {active} = false;
 
     _handlePress = (componentName) => {
         expandedLists[componentName] = expandedLists[componentName] ? false : true;
@@ -47,9 +49,10 @@ export default ListView = (props) => {
           </View>
             
           <View style={styles.heading}>
-            <Button mode="contained">
+            <Button mode="contained" onPress={(props) => props.active = !props.active}>
                 Filter by
              </Button>
+            <Sidebar active={true} />
           </View>
             
           <ScrollView>
@@ -59,7 +62,7 @@ export default ListView = (props) => {
             </List.Section>
           </View>
           </ScrollView>
-            
+        
         </View>
     );
 }
