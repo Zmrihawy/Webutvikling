@@ -3,6 +3,8 @@ import { StyleSheet, View } from 'react-native';
 import ListView from './src/components/ListView';
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 
+import { backendURL } from './config';
+
 
 export default function App() {
 
@@ -10,8 +12,8 @@ export default function App() {
 
   useEffect(() => {
     console.log("fetching");
-    // fetch('192.168.1.8:5000/api/component')
-    fetch('http://192.168.1.8:5000/api/component')
+    console.log(backendURL);
+    fetch(backendURL + 'component')
       .then(res => {
         console.log("fetched", res);
         setComponents(res)
