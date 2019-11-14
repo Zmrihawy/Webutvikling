@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Text, CheckBox, Modal } from 'react-native';
 
 export default class MyComponent extends React.Component {
     state = {

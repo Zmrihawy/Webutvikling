@@ -14,14 +14,13 @@ export default ListView = (props) => {
         setExpandedLists(expandedLists);
     }
 
-
     const listItemStyle = {
       backgroundColor: "#e8f4f8"
     }
 
     const mappedComponents = components.map((component, i) => (
       <List.Accordion key={i}
-              style={{backgroundColor: 'white', marginTop: 5}}
+             style={{backgroundColor: 'white', marginTop: 5, borderRadius: 4}}
              title={component.name}
              left={component => <List.Icon {...component} />}
              expanded={expandedLists[component.name]}
@@ -33,7 +32,7 @@ export default ListView = (props) => {
              <List.Item style={listItemStyle} title={component.price + "kr"} />
       </List.Accordion>
     ));
-
+    
     return (
         <View style={styles.margin}>
           <View style={styles.center, styles.heading}>
@@ -46,11 +45,13 @@ export default ListView = (props) => {
               onChangeText={ text => setSearchText(text) }
             />
           </View>
+            
           <View style={styles.heading}>
-             <Button mode="contained">
+            <Button mode="contained">
                 Filter by
              </Button>
           </View>
+            
           <ScrollView>
           <View style={styles.body}>
             <List.Section>
@@ -58,6 +59,7 @@ export default ListView = (props) => {
             </List.Section>
           </View>
           </ScrollView>
+            
         </View>
     );
 }
