@@ -6,19 +6,22 @@ export default class SideBar extends React.Component {
   
     state={
         checked : false,
-        active: true
+        active: true,
+        query: '',
     }
 
     render(){
         const { checked, active } = this.state;
+        const { filter } = this.props;
         return (
-            <Modal visible={active}>
-                <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                    <Text style={{fontSize: 25, margin: 5}}> Filter by ... </Text>
+            <Modal visible={filter === active}>
+                <View style={{flex: 0.6,  alignItems: 'left', justifyContent: 'center', marginLeft: 40}}>
+                    <Text style={{fontSize: 25, marginBottom: 10}}> Filter by ... </Text>
                     <View>
                         <View style={{flexDirection: 'row'}}>
                             <View style={styles.checkbox} >
-                                <Checkbox status={ checked ? 'checked' : 'unchecked'} onPress={() => { this.setState({ checked : !checked }); }}/>
+                                <Checkbox status={ checked ? 'checked' : 'unchecked'} onPress={() => {
+                                        this.setState({ checked : !checked,  }); }}/>
                             </View>
                             <Text style={styles.chectext}>Name</Text>
                         </View>
@@ -44,7 +47,7 @@ export default class SideBar extends React.Component {
                             <Text style={styles.chectext}>Asc/Des order </Text>
                         </View>
                      
-                        <Button mode="contained" style={{ margin: 8}} onPress={() => {this.setState({ active: !active }); }}>
+                        <Button mode="contained" style={{ marginTop: 5}} onPress={() => {this.setState({ active: !active }); }}>
                             Submit
                         </Button>
                     </View>

@@ -9,7 +9,6 @@ export default ListView = (props) => {
     const { components } = props;
     const [expandedLists, setExpandedLists] = useState({});
     const [searchText, setSearchText] = useState("");
-    const {active} = false;
 
     _handlePress = (componentName) => {
         expandedLists[componentName] = expandedLists[componentName] ? false : true;
@@ -35,6 +34,9 @@ export default ListView = (props) => {
       </List.Accordion>
     ));
     
+    
+    
+    
     return (
         <View style={styles.margin}>
           <View style={styles.center, styles.heading}>
@@ -49,10 +51,10 @@ export default ListView = (props) => {
           </View>
             
           <View style={styles.heading}>
-            <Button mode="contained" onPress={(props) => props.active = !props.active}>
+            <Button mode="contained" onPress={Sidebar}>
                 Filter by
-             </Button>
-            <Sidebar active={null} />
+            </Button>
+            <Sidebar filter={true}/>
           </View>
             
           <ScrollView>
