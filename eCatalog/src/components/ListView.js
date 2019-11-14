@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet  } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
-import { Searchbar, List, Checkbox } from 'react-native-paper';
+import { Searchbar, List, Checkbox, Button, Drawer } from 'react-native-paper';
 export default class ListView extends React.Component {
     state = {
         firstQuery: '',
@@ -27,6 +27,13 @@ export default class ListView extends React.Component {
                         onChangeText={ text => this.setState({ firstQuery: text }) }
                     />
                 </View>
+                
+                <View style={styles.heading}>
+                    <Button mode="contained">
+                        Filter by
+                    </Button>
+                </View>
+                
                 <View style={styles.body}>
                     <List.Section>
                 
