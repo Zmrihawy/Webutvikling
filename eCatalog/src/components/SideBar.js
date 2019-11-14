@@ -5,14 +5,14 @@ import { Button, Checkbox } from 'react-native-paper';
 export default class SideBar extends React.Component {
   
     state={
-        checked : false
+        checked : false,
+        active: true
     }
 
     render(){
-        const { active } = this.props;
-        const { checked } = this.state;
+        const { checked, active } = this.state;
         return (
-            <Modal visible={active ? true : false}>
+            <Modal visible={active}>
                 <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
                     <Text style={{fontSize: 25, margin: 5}}> Filter by ... </Text>
                     <View>
@@ -44,7 +44,7 @@ export default class SideBar extends React.Component {
                             <Text style={styles.chectext}>Asc/Des order </Text>
                         </View>
                      
-                        <Button mode="contained" style={{ margin: 8}}>
+                        <Button mode="contained" style={{ margin: 8}} onPress={() => {this.setState({ active: !active }); }}>
                             Submit
                         </Button>
                     </View>

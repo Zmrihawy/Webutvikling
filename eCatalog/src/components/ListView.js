@@ -52,7 +52,7 @@ export default ListView = (props) => {
             <Button mode="contained" onPress={(props) => props.active = !props.active}>
                 Filter by
              </Button>
-            <Sidebar active={true} />
+            <Sidebar active={null} />
           </View>
             
           <ScrollView>
