@@ -20,7 +20,7 @@ export default function App() {
         setComponents(res)
       })
       .catch(err => console.log("error", err))
-  },[components])
+  },[JSON.stringify(components)])
 
   return (
     <PaperProvider theme={theme}>
