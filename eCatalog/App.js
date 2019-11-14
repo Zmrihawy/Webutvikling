@@ -10,7 +10,8 @@ export default function App() {
 
   useEffect(() => {
     console.log("fetching");
-    fetch('10.52.105.119:5000/api/component')
+    // fetch('192.168.1.8:5000/api/component')
+    fetch('http://192.168.1.8:5000/api/component')
       .then(res => {
         console.log("fetched", res);
         setComponents(res)
