@@ -14,6 +14,7 @@ export default function App() {
     console.log("fetching");
     console.log(backendURL);
     fetch(backendURL + 'component')
+      .then(res => res.json())
       .then(res => {
         console.log("fetched", res);
         setComponents(res)
