@@ -1,61 +1,60 @@
-import React from 'react';
-import { View, Text, StyleSheet  } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, ScrollView  } from 'react-native';
 
 import { Searchbar, List, Checkbox } from 'react-native-paper';
-export default class ListView extends React.Component {
-    state = {
-        firstQuery: '',
-        expanded: false,
-    }
+export default ListView = (props) => {
     
-    _handlePress = () =>
-        this.setState({
-            expanded: !this.state.expanded
-    });
-    
-    render(){
-        const { firstQuery } = this.state;
-        return (
-            <View style={styles.margin}>
-                <View style={styles.center, styles.heading}>
-                    <Text style={styles.h1}>eCatalog</Text>
-                    <Text style={styles.small}>home for electronics</Text>
-                </View>
-                <View>
-                    <Searchbar
-                        placeholder='Search for a pc, mobile, TV ... '
-                        onChangeText={ text => this.setState({ firstQuery: text }) }
-                    />
-                </View>
-                <View style={styles.body}>
-                    <List.Section>
-                
-                        <List.Accordion
-                               title="Item title"
-                               left={props => <List.Icon {...props} />}
-                               expanded={this.state.expanded}
-                               onPress={this._handlePress}
-                        >
-                               <List.Item title="Item title" />
-                               <List.Item title="Item Description" />
-                        </List.Accordion>
-                
-                        <List.Accordion
-                                title="Item title 2"
-                                left={props => <List.Icon {...props} />}
-                                expanded={this.state.expanded}
-                                onPress={this._handlePress}
-                        >
-                                <List.Item title="Item title 2" />
-                                <List.Item title="Item Description" />
-                        </List.Accordion>
-                
-                
-                    </List.Section>
-                </View>
-            </View>
-        );
+    const { components } = props;
+    const [expandedLists, setExpandedLists] = useState({});
+    const [searchText, setSearchText] = useState("");
+
+    _handlePress = (componentName) => {
+        expandedLists[componentName] = expandedLists[componentName] ? false : true;
+        setExpandedLists(expandedLists);
     }
+
+
+    const listItemStyle = {
+      backgroundColor: "#e8f4f8"
+    }
+
+    const mappedComponents = components.map((component, i) => (
+      <List.Accordion key={i}
+              style={{backgroundColor: 'white', marginTop: 5}}
+             title={component.name}
+             left={component => <List.Icon {...component} />}
+             expanded={expandedLists[component.name]}
+               onPress={() => _handlePress(component.name)}
+      >
+             <List.Item style={listItemStyle} title={component.description} />
+             <List.Item style={listItemStyle} title={component.producer} />
+             <List.Item style={listItemStyle} title={component.category} />
+             <List.Item style={listItemStyle} title={component.price + "kr"} />
+      </List.Accordion>
+    ))
+
+    
+    return (
+        <View style={styles.margin}>
+          <View style={styles.center, styles.heading}>
+            <Text style={styles.h1}>eCatalog</Text>
+            <Text style={styles.small}>home for electronics</Text>
+          </View>
+          <View>
+            <Searchbar
+              placeholder='Search for a pc, mobile, TV ... '
+              onChangeText={ text => setSearchText(text) }
+            />
+          </View>
+          <ScrollView>
+          <View style={styles.body}>
+            <List.Section>
+              {mappedComponents}
+            </List.Section>
+          </View>
+          </ScrollView>
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
