@@ -26,8 +26,7 @@ export default function App() {
   return (
     <PaperProvider theme={theme}>
         <View style={styles.container}>
-            <ListView />
-            <SideBar />
+          <ListView components={components}/>
         </View>
     </PaperProvider>
   );
@@ -38,7 +37,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#D0D3D4',
+    backgroundColor: '#D0D3F4',
     // alignItems: 'center',
     // justifyContent: 'center',
   },
