@@ -25,7 +25,7 @@ export default function App() {
   return (
     <PaperProvider theme={theme}>
         <View style={styles.container}>
-            <ListView />
+          <ListView components={components}/>
         </View>
     </PaperProvider>
   );
