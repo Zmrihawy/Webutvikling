@@ -46,11 +46,11 @@ export default ListView = (props) => {
               onChangeText={ text => setSearchText(text) }
             />
           </View>
-        <View style={styles.heading}>
-            <Button mode="contained">
+          <View style={styles.heading}>
+             <Button mode="contained">
                 Filter by
-            </Button>
-        </View>
+             </Button>
+          </View>
           <ScrollView>
           <View style={styles.body}>
             <List.Section>
