@@ -14,7 +14,7 @@ export default class SideBar extends React.Component {
         const { checked, active } = this.state;
         const { filter } = this.props;
         return (
-            <Modal visible={filter === active}>
+            <Modal visible={filter === active} animationType={'slide'}>
                 <View style={{flex: 0.6,  alignItems: 'left', justifyContent: 'center', marginLeft: 40}}>
                     <Text style={{fontSize: 25, marginBottom: 10}}> Filter by ... </Text>
                     <View>
