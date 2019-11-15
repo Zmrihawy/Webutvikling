@@ -6,6 +6,9 @@ import ListView from "./src/components/ListView";
 
 import { backendURL } from "./config";
 
+/**
+ * Wrapper component for listview
+ */
 export default function MainView() {
   return (
     <PaperProvider theme={theme}>
