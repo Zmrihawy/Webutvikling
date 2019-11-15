@@ -5,9 +5,9 @@ import {
 import { List, Snackbar } from 'react-native-paper';
 
 export default ShoppingCartView = (props) => {
-  const { components, clearAsyncStorage, showSnack,  } = props;
+  const { components, clearAsyncStorage, showSnack } = props;
   const [expandedLists, setExpandedLists] = useState({});
-  const [storedComponents, setStoredComponents] = useState([]);
+  const [componentsVar, setComponentsVar] = useState(components);
 
   let mappedItems = [];
 
@@ -16,8 +16,10 @@ export default ShoppingCartView = (props) => {
     setExpandedLists(expandedLists);
   };
 
+  console.log("components: ", components)
 
-  mappedItems = components
+
+  mappedItems = componentsVar
     .map((x) => x.component)
     .map((component) => (
       <List.Accordion
@@ -39,9 +41,8 @@ export default ShoppingCartView = (props) => {
   };
 
   const buyItems = () => {
-    if (components) {
-      showSnack();
-    }
+    setComponentsVar([]);
+    showSnack();
     clearAsyncStorage();
   }
 

@@ -18,6 +18,7 @@ export default class ShoppingCartViewWrapper extends Component {
     const { components, clearAsyncStorage } = this.props;
     let mappedItems = [];
 
+    console.log("state", this.state);
 
     return (
       <View>
@@ -25,7 +26,7 @@ export default class ShoppingCartViewWrapper extends Component {
         />
           <Snackbar
             visible={this.state.visible}
-            onDismiss={() => (this.setState(false))}
+            onDismiss={() => (false)}
             action={{
               label: 'Undo',
               onPress: () => {
