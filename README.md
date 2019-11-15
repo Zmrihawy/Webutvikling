@@ -15,12 +15,15 @@ simple and easy to implement our application  and give it the same feel as our w
 
 
 ## Content and Functionality 
-
-### Searching 
+### Searching, filtering and dynamic loading of data
 Catalog components can be searched  by navigating to the search page via clicking the "Filter by" button on the home screen. The search screeen contains a search bar and other filtering and sorting alternatives that a user that  decide to select or choose while searching. On submitting this returns a list of the desired components on the homescreen. 
+Components on the homepage are loaded using pagination . The user can change between pages if the seacrh result returned a lot of components. 
 
 ### Detailed view
 Searched components are dispalyed on the home screen as expandable lists that contain details about each component. Tap on the list to expand it to see the deatils and theres a possiblity of adding the component to your shopping cart. 
+
+### User generated data
+A user has possibility to add items to their shooping cart. The item is automatically added to the shopping cart and the user can decide to buy the items in their cart. Just to metion, ounce an item is added to the users shopping cart, it can not deleted from it.  
 
 ### React Native 
 React native is a javascript library which enable us to create apps for Android and iOS using React.React Native combines the best parts of native development with React, a best-in-class JavaScript library for building user interfaces.
