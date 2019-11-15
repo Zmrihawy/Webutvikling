@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import ListView from './src/components/ListView';
+import ShoppingCartView from './src/components/ShoppingCartView'
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 
 import { backendURL } from './config';
@@ -16,7 +17,6 @@ export default function App() {
     fetch(backendURL + 'component')
       .then(res => res.json())
       .then(res => {
-        console.log("fetched", res);
         setComponents(res)
       })
       .catch(err => console.log("error", err))
@@ -26,6 +26,9 @@ export default function App() {
     <PaperProvider theme={theme}>
         <View style={styles.container}>
           <ListView components={components}/>
+        </View>
+        <View style={styles.container}>
+          <ShoppingCartView />
         </View>
     </PaperProvider>
   );

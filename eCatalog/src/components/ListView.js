@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView  } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, AsyncStorage  } from 'react-native';
 
 import { Searchbar, List, Checkbox } from 'react-native-paper';
+import { Button } from 'react-native-paper';
 export default ListView = (props) => {
     
     const { components } = props;
@@ -13,6 +14,47 @@ export default ListView = (props) => {
         setExpandedLists(expandedLists);
     }
 
+    _saveData = (component) =>{
+      AsyncStorage.getItem(component._id)
+        .then(storedComponent => {
+          let newProduct = JSON.parse(storedComponent)
+          if( !newProduct ){
+            return AsyncStorage.setItem(component._id, JSON.stringify(
+              {component, count: 1}
+            ))
+          }
+          return AsyncStorage.setItem(component._id, JSON.stringify(
+            {component, count: newProduct.count + 1}
+          ))
+        })
+        .catch(err => console.log(err))
+    }
+
+    _displayData = async() =>{
+      try{
+        AsyncStorage.getAllKeys((err, keys) => {
+          AsyncStorage.multiGet(keys, (err, components) => {
+            console.log("heeeredsagsgfdsgsg", components)
+            
+            const mappedItems = components.map(x => JSON.parse(x[1])).map((component,i) => {
+              console.log("Her er en component", component)
+              return (
+              <List.Accordion key={i}>
+                <List.Item title={component.description} />
+              </List.Accordion>)
+            })
+          })
+        })
+      }
+      catch(error){
+        alert(error)
+      }
+    }
+
+
+    _clearAsyncStorage = async() => {
+      AsyncStorage.clear();
+  }
 
     const listItemStyle = {
       backgroundColor: "#e8f4f8"
@@ -30,6 +72,15 @@ export default ListView = (props) => {
              <List.Item style={listItemStyle} title={component.producer} />
              <List.Item style={listItemStyle} title={component.category} />
              <List.Item style={listItemStyle} title={component.price + "kr"} />
+             <Button icon="" mode="contained" onPress={() => _saveData(component)}>
+                    Add to shopping cart
+              </Button>
+              <Button icon="" mode="contained" onPress={() => _displayData()}>
+                    Display shopping cart
+              </Button>
+              <Button icon="" mode="contained" onPress={() => _clearAsyncStorage()}>
+                    Clear shopping cart
+              </Button>
       </List.Accordion>
     ))
 
