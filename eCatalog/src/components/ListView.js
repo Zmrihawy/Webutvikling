@@ -64,9 +64,12 @@ export default ListView = (props) => {
             <Sidebar filter={filter}/>
           </View>
         
-          <View>
-            <Text><FontAwesome5 name={"chevron-left"} solid size={25}/></Text>
-            <Text><FontAwesome5 name={"chevron-right"} solid size={25}/></Text>
+          <View style={{alignItems: 'center', width: '100%'}}>
+                <Text>
+                    <FontAwesome5 name={"chevron-left"} solid size={25}/>
+                    <Text style={{marginLeft: 9, marginRight: 9 }}> Page 1 </Text>
+                    <FontAwesome5 name={"chevron-right"} solid size={25}/>
+                </Text>
           </View>
             
           <ScrollView>
