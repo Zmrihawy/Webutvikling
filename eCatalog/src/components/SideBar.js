@@ -29,16 +29,17 @@ export default class SideBar extends React.Component {
                 
                         <View style={{flexDirection: 'row'}}>
                             <View style={styles.checkbox} >
-                                <Checkbox status={ checked.checked2 ? 'checked' : 'unchecked'} onPress={() => { this.setState({ checked: {...checked, checked2: !checked.checked2}}); }}/>
-                            </View>
-                            <Text style={styles.chectext}>Price</Text>
-                        </View>
-                
-                        <View style={{flexDirection: 'row'}}>
-                            <View style={styles.checkbox} >
                                 <Checkbox status={ checked.checked3 ? 'checked' : 'unchecked'} onPress={() => { this.setState({ checked: {...checked, checked3: !checked.checked3}}); }}/>
                             </View>
                             <Text style={styles.chectext}>Producer</Text>
+                        </View>
+            
+                        <Text style={{fontSize: 25, marginBottom: 10, marginTop: 10}}> Sort by ... </Text>
+                        <View style={{flexDirection: 'row'}}>
+                            <View style={styles.checkbox} >
+                                <Checkbox status={ checked.checked2 ? 'checked' : 'unchecked'} onPress={() => { this.setState({ checked: {...checked, checked2: !checked.checked2}}); }}/>
+                            </View>
+                            <Text style={styles.chectext}>Price</Text>
                         </View>
                 
                         <View style={{flexDirection: 'row'}} >
@@ -47,13 +48,6 @@ export default class SideBar extends React.Component {
                             </View>
                             <Text style={styles.chectext}>Asc/Des order </Text>
                         </View>
-                
-                
-                
-                
-                
-                
-                        <Text style={{fontSize: 25, marginBottom: 10}}> Sort by ... </Text>
                      
                         <Button mode="contained" style={{ marginTop: 5}} onPress={() => {this.setState({ active: !active }); }}>
                             Submit
