@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView  } from 'react-native';
-import { Searchbar, List, Checkbox, Button } from 'react-native-paper';
+import { Searchbar, List, Checkbox, Button,  DataTable } from 'react-native-paper';
 
 import Sidebar from './SideBar';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+
 
 export default ListView = (props) => {
     
@@ -27,7 +27,7 @@ export default ListView = (props) => {
              title={component.name}
              left={component => <List.Icon {...component} />}
              expanded={expandedLists[component.name]}
-               onPress={() => _handlePress(component.name)}
+             onPress={() => _handlePress(component.name)}
       >
              <List.Item style={listItemStyle} title={component.description} />
              <List.Item style={listItemStyle} title={component.producer} />
@@ -36,8 +36,6 @@ export default ListView = (props) => {
       </List.Accordion>
     ));
     
-   
-
     filterBy = () => {
         setfilter(!filter);
     }
@@ -63,20 +61,25 @@ export default ListView = (props) => {
           </View>
         
           <View style={{alignItems: 'center', width: '100%', marginBottom: 8}}>
-                <Text>
-                    <FontAwesome5 name={"chevron-left"} solid size={25}/>
-                    <Text style={{marginLeft: 9, marginRight: 9 }}> Page 1 </Text>
-                    <FontAwesome5 name={"chevron-right"} solid size={25}/>
-                </Text>
+                <DataTable.Pagination
+                  page={1}
+                  numberOfPages={3}
+                  onPageChange={(page) => { console.log(page); }}
+                  label="Page 1 of 6"
+                />
           </View>
             
           <ScrollView>
-          <View style={styles.body}>
-            <List.Section>
-              {mappedComponents}
-            </List.Section>
-          </View>
+            <View style={styles.body}>
+                <List.Section>
+                    {mappedComponents}
+                </List.Section>
+            </View>
           </ScrollView>
+        
+            <View>
+                <Text> Footer </Text>
+            </View>
         
         </View>
     );
