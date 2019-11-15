@@ -14,15 +14,13 @@ We have both used react native basic components and as a third party librabry, w
 simple and easy to implement our application  and give it the same feel as our website.
 
 
-
-
 ## Content and Functionality 
 
 ### Searching 
 Catalog components can be searched  by navigating to the search page via clicking the "Filter by" button on the home screen. The search screeen contains a search bar and other filtering and sorting alternatives that a user that  decide to select or choose while searching. On submitting this returns a list of the desired components on the homescreen. 
 
 ### Detailed view
-Searched components are dispalyed on the home screen as expandable lists that contain details about each component. Tab on the list to expand it and theres a possiblity of adding the component to your shopping cart. 
+Searched components are dispalyed on the home screen as expandable lists that contain details about each component. Tap on the list to expand it to see the deatils and theres a possiblity of adding the component to your shopping cart. 
 
-## React Native 
+### React Native 
 React native is a javascript library which enable us to create apps for Android and iOS using React.React Native combines the best parts of native development with React, a best-in-class JavaScript library for building user interfaces.
