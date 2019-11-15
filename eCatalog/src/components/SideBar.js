@@ -13,9 +13,10 @@ export default class SideBar extends React.Component {
             query: '',
         }
     }
+    
 
     render(){
-        const { checked, active } = this.state;
+        const { checked, active, query } = this.state;
         const { filter } = this.props;
         return (
             <Modal visible={filter === active} animationType={'slide'}>
@@ -23,7 +24,7 @@ export default class SideBar extends React.Component {
                     <Text style={{fontSize: 25, marginBottom: 10}}> Filter by ... </Text>
                     <View>
                         <View>
-                            <DropDown />
+                            <DropDown onChange={() => { this.setState({ query: query + selectedItem });  }}/>
                         </View>
     
                         <Text style={{fontSize: 25, marginBottom: 20, marginTop: 70}}> Sort by ... </Text>

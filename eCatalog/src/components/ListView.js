@@ -11,8 +11,6 @@ export default ListView = (props) => {
     const [expandedLists, setExpandedLists] = useState({});
     const [filter, setfilter] = useState(false);
     const [searchText, setSearchText] = useState("");
-    const right = <FontAwesome5 name={"chevron-right"} solid/>;
-    const left = <FontAwesome5 name={"chevron-left"} solid/>;
 
     _handlePress = (componentName) => {
         expandedLists[componentName] = expandedLists[componentName] ? false : true;
@@ -64,7 +62,7 @@ export default ListView = (props) => {
             <Sidebar filter={filter}/>
           </View>
         
-          <View style={{alignItems: 'center', width: '100%'}}>
+          <View style={{alignItems: 'center', width: '100%', marginBottom: 8}}>
                 <Text>
                     <FontAwesome5 name={"chevron-left"} solid size={25}/>
                     <Text style={{marginLeft: 9, marginRight: 9 }}> Page 1 </Text>
