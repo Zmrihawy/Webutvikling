@@ -1,23 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, StatusBar } from 'react-native';
+import React, { useState, useEffect } from "react";
+import { StyleSheet, View, StatusBar } from "react-native";
 
-import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
-import ListView from './src/components/ListView';
+import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
+import ListView from "./src/components/ListView";
 
-import { backendURL } from './config';
+import { backendURL } from "./config";
 
 export default function MainView() {
   const [components, setComponents] = useState([]);
 
   useEffect(() => {
-    console.log('fetching');
+    console.log("fetching");
     console.log(backendURL);
     fetch(`${backendURL}component`)
-      .then((res) => res.json())
-      .then((res) => {
+      .then(res => res.json())
+      .then(res => {
         setComponents(res);
       })
-      .catch((err) => console.log('error', err));
+      .catch(err => console.log("error", err));
   }, [JSON.stringify(components)]);
 
   return (
@@ -34,7 +34,7 @@ export default function MainView() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#D0D3F4'
+    backgroundColor: "#D0D3F4"
     // alignItems: 'center',
     // justifyContent: 'center',
   }
@@ -46,7 +46,7 @@ const theme = {
   roundness: 4,
   colors: {
     ...DefaultTheme.colors,
-    primary: 'blue',
-    accent: 'green'
+    primary: "blue",
+    accent: "green"
   }
 };
