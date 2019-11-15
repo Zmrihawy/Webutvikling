@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import { Dropdown } from 'react-native-material-dropdown';
- 
+import React, { Component } from "react";
+import { Dropdown } from "react-native-material-dropdown";
+
 export default class DropDown extends Component {
-    render() {
+  render() {
     const { name, data } = this.props;
- 
+
     return (
       <Dropdown
         label={name}
-        baseColor='black'
-        containerStyle={{width: 200}}
-        textColor='blue'
-        data={ data }
+        baseColor="black"
+        containerStyle={{ width: 200 }}
+        textColor="blue"
+        data={data}
       />
     );
   }
