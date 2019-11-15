@@ -9,12 +9,12 @@ Our project build is based on two parts, a client part and a server part. The se
 ## Techonology
 ### React Native 
 React Native is an open-source mobile application framework  used to develop applications for Android, iOS, Web and UWP by enabling developers to use React along with native platform capabilities. 
-We initaiated our project with `npm install -g expo-cli` followed by `expo init prosjekt4`.  Expo is a set of tools built around React Native and, while it has many features, the most relevant feature is that it can get you writing a React Native app within minutes.  React native comes basic elements like `<View>` and `<Text>` which we used in addition to a third party library called `react-native-papaer`.
+We initaiated our project with `npm install -g expo-cli` followed by `expo init prosjekt4`.  Expo is a set of tools built around React Native and, while it has many features, the most relevant feature is that it can get you writing a React Native app within minutes.  React native comes basic elements like `<View>` and `<Text>` which we used in addition to a third party library called `react-native-paper`.
 
 ## Design
 ### React Native and React Native paper - components (Third Party library)
 We have both used react native basic components and as a third party librabry, we have choosen to use `react-native_paper`.  Most of our project components are built using react native paper elements . This made it 
-simple and easy to implement our application  and give it the same feel as our website.
+simple and easy to implement our application  and give it the same feel as our website. We also used react native tab view for tabs
 
 
 ## Content and Functionality 
