@@ -1,14 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
-  View, Text, StyleSheet, ScrollView, AsyncStorage
+  View, StyleSheet, ScrollView, AsyncStorage
 } from 'react-native';
-import {
-  Searchbar,
-  List,
-  Checkbox,
-  Button,
-  DataTable
-} from 'react-native-paper';
+import { List, Button, DataTable } from 'react-native-paper';
 
 import Sidebar from './SideBar';
 
@@ -16,9 +10,8 @@ export default ListView = (props) => {
   const { components } = props;
   const [expandedLists, setExpandedLists] = useState({});
   const [filter, setfilter] = useState(false);
-  const [searchText, setSearchText] = useState('');
 
-  const _handlePress = (componentName) => {
+  const handlePress = (componentName) => {
     expandedLists[componentName] = !expandedLists[componentName];
     setExpandedLists(expandedLists);
   };
@@ -31,7 +24,7 @@ export default ListView = (props) => {
     setfilter(!filter);
   };
 
-  const _saveData = (component) => {
+  const saveData = (component) => {
     AsyncStorage.getItem(component._id)
       .then((storedComponent) => {
         const newProduct = JSON.parse(storedComponent);
@@ -51,18 +44,18 @@ export default ListView = (props) => {
 
   const mappedComponents = components.map((component, i) => (
     <List.Accordion
-      key={i}
+      key={component._id}
       style={{ backgroundColor: 'white', marginTop: 5 }}
       title={component.name}
       left={(component) => <List.Icon {...component} />}
       expanded={expandedLists[component.name]}
-      onPress={() => _handlePress(component.name)}
+      onPress={() => handlePress(component.name)}
     >
       <List.Item style={listItemStyle} title={component.description} />
       <List.Item style={listItemStyle} title={component.producer} />
       <List.Item style={listItemStyle} title={component.category} />
       <List.Item style={listItemStyle} title={`${component.price}kr`} />
-      <Button icon="" mode="contained" onPress={() => _saveData(component)}>
+      <Button icon="" mode="contained" onPress={() => saveData(component)}>
         Add to shopping cart
       </Button>
     </List.Accordion>

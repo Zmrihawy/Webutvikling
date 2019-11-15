@@ -7,14 +7,6 @@ import { TabView, SceneMap } from 'react-native-tab-view';
 import MainView from './MainView';
 import ShoppingCartView from './src/components/ShoppingCartView';
 
-const FirstRoute = () => (
-  <View style={[styles.scene, { backgroundColor: '#ff4081' }]} />
-);
-
-const SecondRoute = () => (
-  <View style={[styles.scene, { backgroundColor: '#673ab7' }]} />
-);
-
 export default class App extends React.Component {
   constructor(props) {
     super(props);

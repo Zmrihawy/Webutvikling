@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Text, Modal, View, StyleSheet
 } from 'react-native';
-import { Button, Checkbox, TextInput } from 'react-native-paper';
+import { Button, Checkbox } from 'react-native-paper';
 import DropDown from './Dropdown';
 
 const producer = [
