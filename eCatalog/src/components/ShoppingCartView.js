@@ -20,8 +20,6 @@ export default ShoppingCartView = (props) => {
     setExpandedLists(expandedLists);
   };
 
-  console.log('components: ', components);
-
   mappedItems = componentsVar.map((component) => (
     <List.Accordion
       key={component.component._id}

@@ -43,7 +43,6 @@ export default class App extends React.Component {
       if (err1) console.log(err1);
       AsyncStorage.multiGet(keys, (err2, currentStoredComponents) => {
         if (err2) console.log(err2);
-        console.log(currentStoredComponents);
         this.setState({
           storedComponents: currentStoredComponents.map((x) => JSON.parse(x[1])),
           ShoppingCartViewWrapperVar: () => (
@@ -58,7 +57,6 @@ export default class App extends React.Component {
   };
 
   render() {
-    console.log('THIS IS THE STATE', this.state.storedComponents);
     return (
       <TabView
         navigationState={this.state}

@@ -22,17 +22,13 @@ export default class ShoppingCartViewWrapper extends Component {
     const { components, clearAsyncStorage } = this.props;
     const mappedItems = [];
 
-    console.log('state', this.state);
 
     return (
       <View style={styles.container}>
         <ShoppingCartView
           components={components}
           clearAsyncStorage={clearAsyncStorage}
-          showSnack={() => {
-            console.log('setting to true');
-            this.setState({ visible: true });
-          }}
+          showSnack={() => {this.setState({ visible: true })}}
         />
         <Snackbar
           visible={this.state.visible}
