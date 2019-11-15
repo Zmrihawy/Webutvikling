@@ -102,7 +102,7 @@ export default ListView = (props) => {
     : [];
 
   return (
-    <View style={styles.margin}>
+    <View style={{height: '97%'}}>
       <View style={(styles.center, styles.heading)}>
         <Text style={styles.h1}>eCatalog</Text>
         <Text style={styles.small}>home for electronics</Text>
@@ -136,10 +136,10 @@ export default ListView = (props) => {
 };
 
 const styles = StyleSheet.create({
-  margin: { margin: 35 },
-  h1: { fontSize: 28 },
+  margin: { margin: 10 },
+  h1: { fontSize: 20 },
   center: { alignItems: 'center' },
   small: { fontSize: 10 },
-  heading: { margin: 10 },
+  heading: { margin: 3 },
   body: { color: 'white' }
 });
