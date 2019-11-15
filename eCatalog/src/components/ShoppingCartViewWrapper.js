@@ -21,18 +21,19 @@ export default class ShoppingCartViewWrapper extends Component {
     console.log("state", this.state);
 
     return (
-      <View>
+      <View style={styles.container}>
         <ShoppingCartView components={components} clearAsyncStorage={clearAsyncStorage} showSnack={() => {console.log("setting to true"); this.setState({visible: true} )}}
         />
           <Snackbar
             visible={this.state.visible}
-            onDismiss={() => (false)}
+            onDismiss={() => this.setState({visible: false})}
             action={{
-              label: 'Undo',
+              label: 'Close',
               onPress: () => {
-                // Do something
+                this.setState({visible: false})
               },
             }}
+            style={styles.position}
           >
               Thank you for your purchase!
           </Snackbar>
@@ -41,11 +42,16 @@ export default class ShoppingCartViewWrapper extends Component {
   }
 };
 
+
 const styles = StyleSheet.create({
   margin: { margin: 35 },
   h1: { fontSize: 28 },
   center: { alignItems: 'center' },
   small: { fontSize: 10 },
   heading: { margin: 10 },
-  body: { color: 'white' }
+  body: { color: 'white' },
+  container: {
+    flex: 1,
+    justifyContent: 'space-between',
+  }
 });

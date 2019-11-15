@@ -20,19 +20,18 @@ export default ShoppingCartView = (props) => {
 
 
   mappedItems = componentsVar
-    .map((x) => x.component)
     .map((component) => (
       <List.Accordion
-        key={component._id}
+        key={component.component._id}
         style={{ backgroundColor: 'white', marginTop: 5 }}
-        title={component.name}
-        expanded={expandedLists[component.name]}
-        onPress={() => handlePress(component.name)}
+        title={component.count + " x " + component.component.name}
+        expanded={expandedLists[component.component.name]}
+        onPress={() => handlePress(component.component.name)}
       >
-        <List.Item style={listItemStyle} title={component.description} />
-        <List.Item style={listItemStyle} title={component.producer} />
-        <List.Item style={listItemStyle} title={component.category} />
-        <List.Item style={listItemStyle} title={component.price + "kr"} />
+        <List.Item style={listItemStyle} title={component.component.description} />
+        <List.Item style={listItemStyle} title={component.component.producer} />
+        <List.Item style={listItemStyle} title={component.component.category} />
+        <List.Item style={listItemStyle} title={component.component.price + "kr"} />
       </List.Accordion>
     ));
 
@@ -48,8 +47,7 @@ export default ShoppingCartView = (props) => {
 
   return (
     <View style={styles.margin}>
-      <Button title={"buy button"} onPress={buyItems}>
-        {"Buy items in cart"}
+      <Button title={"Buy items in cart for " + components.map(x => x.component.price * x.count).reduce((i, j) => (i + j), 0) + " kr "} onPress={buyItems}>
       </Button>
       <ScrollView>
         <View style={styles.body}>
