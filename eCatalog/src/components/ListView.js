@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, ScrollView  } from 'react-native';
 import { Searchbar, List, Checkbox, Button } from 'react-native-paper';
 
 import Sidebar from './SideBar';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 export default ListView = (props) => {
     
@@ -10,6 +11,8 @@ export default ListView = (props) => {
     const [expandedLists, setExpandedLists] = useState({});
     const [filter, setfilter] = useState(false);
     const [searchText, setSearchText] = useState("");
+    const right = <FontAwesome5 name={"chevron-right"} solid/>;
+    const left = <FontAwesome5 name={"chevron-left"} solid/>;
 
     _handlePress = (componentName) => {
         expandedLists[componentName] = expandedLists[componentName] ? false : true;
@@ -59,7 +62,11 @@ export default ListView = (props) => {
                 Filter by
             </Button>
             <Sidebar filter={filter}/>
-            
+          </View>
+        
+          <View>
+            <Text style={{fontSize: 20}}><FontAwesome5 name={"chevron-left"} solid size={25}/></Text>
+            <Text style={{fontSize: 20}}><FontAwesome5 name={"chevron-right"} solid size={25}/></Text>
           </View>
             
           <ScrollView>
