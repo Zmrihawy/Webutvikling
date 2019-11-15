@@ -65,8 +65,8 @@ export default ListView = (props) => {
           </View>
         
           <View>
-            <Text style={{fontSize: 20}}><FontAwesome5 name={"chevron-left"} solid size={25}/></Text>
-            <Text style={{fontSize: 20}}><FontAwesome5 name={"chevron-right"} solid size={25}/></Text>
+            <Text><FontAwesome5 name={"chevron-left"} solid size={25}/></Text>
+            <Text><FontAwesome5 name={"chevron-right"} solid size={25}/></Text>
           </View>
             
           <ScrollView>
