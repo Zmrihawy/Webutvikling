@@ -2,19 +2,21 @@ import React, { useState, useEffect } from 'react';
 import {
   View, StyleSheet, ScrollView, AsyncStorage, Button
 } from 'react-native';
-
-import { List } from 'react-native-paper';
+import { List, Snackbar } from 'react-native-paper';
 
 export default ShoppingCartView = (props) => {
   const { components, clearAsyncStorage } = props;
   const [expandedLists, setExpandedLists] = useState({});
   const [storedComponents, setStoredComponents] = useState([]);
+  const [snackVisible, setSnackVisible] = useState(false);
+
   let mappedItems = [];
 
   const handlePress = (componentName) => {
     expandedLists[componentName] = !expandedLists[componentName];
     setExpandedLists(expandedLists);
   };
+
 
   mappedItems = components
     .map((x) => x.component)
@@ -38,16 +40,39 @@ export default ShoppingCartView = (props) => {
     backgroundColor: '#e8f4f8'
   };
 
+  const buyItems = () => {
+    console.log("before", snackVisible)
+    setSnackVisible(true);
+    console.log("after", snackVisible)
+    clearAsyncStorage();
+  }
+
+  console.log(snackVisible);
   return (
     <View style={styles.margin}>
-      <Button title={"buy button"} onPress={clearAsyncStorage}>
+
+      <Button title={"buy button"} onPress={buyItems}>
         {"Buy items in cart"}
       </Button>
       <ScrollView>
         <View style={styles.body}>
           <List.Section>{mappedItems}</List.Section>
         </View>
+
       </ScrollView>
+          <Snackbar
+          visible={snackVisible}
+          onDismiss={() => setSnackVisible(false)}
+          action={{
+            label: 'Undo',
+            onPress: () => {
+              // Do something
+            },
+          }}
+        >
+          Hey there! I'm a Snackbar.
+        </Snackbar>
+
     </View>
   );
 };

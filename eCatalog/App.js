@@ -4,6 +4,7 @@ import {
 } from 'react-native';
 import { TabView, SceneMap } from 'react-native-tab-view';
 
+
 import MainView from './MainView';
 import ShoppingCartView from './src/components/ShoppingCartView';
 
