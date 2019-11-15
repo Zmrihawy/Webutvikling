@@ -1,14 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, ScrollView, AsyncStorage } from "react-native";
+import React, { useState, useEffect } from 'react';
+import {
+  View, Text, StyleSheet, ScrollView, AsyncStorage
+} from 'react-native';
 
-import { Searchbar, List, Checkbox, Button } from "react-native-paper";
+import {
+  Searchbar, List, Checkbox, Button
+} from 'react-native-paper';
 
-export default ShoppingCartView = props => {
+export default ShoppingCartView = (props) => {
   const { components } = props;
   const [expandedLists, setExpandedLists] = useState({});
   let mappedItems = [];
 
-  _handlePress = componentName => {
+  _handlePress = (componentName) => {
     expandedLists[componentName] = !expandedLists[componentName];
     setExpandedLists(expandedLists);
   };
@@ -16,16 +20,16 @@ export default ShoppingCartView = props => {
   try {
     AsyncStorage.getAllKeys((err, keys) => {
       AsyncStorage.multiGet(keys, (err, components) => {
-        console.log("heeeredsagsgfdsgsg", components);
+        console.log('heeeredsagsgfdsgsg', components);
 
         mappedItems = components
-          .map(x => JSON.parse(x[1]))
+          .map((x) => JSON.parse(x[1]))
           .map((component, i) => {
             <List.Accordion
               key={i}
-              style={{ backgroundColor: "white", marginTop: 5 }}
+              style={{ backgroundColor: 'white', marginTop: 5 }}
               title={component.name}
-              left={component => <List.Icon {...component} />}
+              left={(component) => <List.Icon {...component} />}
               expanded={expandedLists[component.name]}
               onPress={() => _handlePress(component.name)}
             >
@@ -46,7 +50,7 @@ export default ShoppingCartView = props => {
   };
 
   const listItemStyle = {
-    backgroundColor: "#e8f4f8"
+    backgroundColor: '#e8f4f8'
   };
 
   return (
@@ -63,8 +67,8 @@ export default ShoppingCartView = props => {
 const styles = StyleSheet.create({
   margin: { margin: 35 },
   h1: { fontSize: 28 },
-  center: { alignItems: "center" },
+  center: { alignItems: 'center' },
   small: { fontSize: 10 },
   heading: { margin: 10 },
-  body: { color: "white" }
+  body: { color: 'white' }
 });

@@ -49,33 +49,6 @@ export default ListView = (props) => {
       .catch((err) => console.log(err));
   };
 
-  const _displayData = async () => {
-    try {
-      AsyncStorage.getAllKeys((err, keys) => {
-        AsyncStorage.multiGet(keys, (err, components) => {
-          console.log('heeeredsagsgfdsgsg', components);
-
-          const mappedItems = components
-            .map((x) => JSON.parse(x[1]))
-            .map((component, i) => {
-              console.log('Her er en component', component);
-              return (
-                <List.Accordion key={i}>
-                  <List.Item title={component.description} />
-                </List.Accordion>
-              );
-            });
-        });
-      });
-    } catch (error) {
-      alert(error);
-    }
-  };
-
-  _clearAsyncStorage = async () => {
-    AsyncStorage.clear();
-  };
-
   const mappedComponents = components.map((component, i) => (
     <List.Accordion
       key={i}
@@ -91,12 +64,6 @@ export default ListView = (props) => {
       <List.Item style={listItemStyle} title={`${component.price}kr`} />
       <Button icon="" mode="contained" onPress={() => _saveData(component)}>
         Add to shopping cart
-      </Button>
-      <Button icon="" mode="contained" onPress={() => _displayData()}>
-        Display shopping cart
-      </Button>
-      <Button icon="" mode="contained" onPress={() => _clearAsyncStorage()}>
-        Clear shopping cart
       </Button>
     </List.Accordion>
   ));
