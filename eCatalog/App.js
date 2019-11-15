@@ -1,12 +1,9 @@
-import * as React from 'react';
-import {
-  View, StyleSheet, Dimensions, AsyncStorage
-} from 'react-native';
-import { TabView, SceneMap } from 'react-native-tab-view';
+import * as React from "react";
+import { View, StyleSheet, Dimensions, AsyncStorage } from "react-native";
+import { TabView, SceneMap } from "react-native-tab-view";
 
-
-import MainView from './MainView';
-import ShoppingCartViewWrapper from './src/components/ShoppingCartViewWrapper';
+import MainView from "./MainView";
+import ShoppingCartViewWrapper from "./src/components/ShoppingCartViewWrapper";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -15,10 +12,15 @@ export default class App extends React.Component {
       index: 0,
       storedComponents: [],
       routes: [
-        { key: 'first', title: 'Browse' },
-        { key: 'second', title: 'ShoppingCart' }
+        { key: "first", title: "Browse" },
+        { key: "second", title: "ShoppingCart" }
       ],
-      ShoppingCartViewWrapperVar: () => (<ShoppingCartViewWrapper components={this.state.storedComponents} clearAsyncStorage={this.clearAsyncStorage} />)
+      ShoppingCartViewWrapperVar: () => (
+        <ShoppingCartViewWrapper
+          components={this.state.storedComponents}
+          clearAsyncStorage={this.clearAsyncStorage}
+        />
+      )
     };
     this.handleIndexChange = this.handleIndexChange.bind(this);
     this.clearAsyncStorage = this.clearAsyncStorage.bind(this);
@@ -31,7 +33,7 @@ export default class App extends React.Component {
     });
   };
 
-  handleIndexChange = (index) => {
+  handleIndexChange = index => {
     this.setState({ index });
     AsyncStorage.getAllKeys((err1, keys) => {
       if (err1) console.log(err1);
@@ -39,15 +41,20 @@ export default class App extends React.Component {
         if (err2) console.log(err2);
         console.log(currentStoredComponents);
         this.setState({
-          storedComponents: currentStoredComponents.map((x) => JSON.parse(x[1])),
-          ShoppingCartViewWrapperVar: () => (<ShoppingCartViewWrapper components={currentStoredComponents.map((x) => JSON.parse(x[1]))} clearAsyncStorage={this.clearAsyncStorage} />)
+          storedComponents: currentStoredComponents.map(x => JSON.parse(x[1])),
+          ShoppingCartViewWrapperVar: () => (
+            <ShoppingCartViewWrapper
+              components={currentStoredComponents.map(x => JSON.parse(x[1]))}
+              clearAsyncStorage={this.clearAsyncStorage}
+            />
+          )
         });
       });
     });
   };
 
   render() {
-    console.log("THIS IS THE STATE", this.state.storedComponents)
+    console.log("THIS IS THE STATE", this.state.storedComponents);
     return (
       <TabView
         navigationState={this.state}
@@ -55,8 +62,8 @@ export default class App extends React.Component {
           first: MainView,
           second: this.state.ShoppingCartViewWrapperVar
         })}
-        onIndexChange={(index) => this.handleIndexChange(index)}
-        initialLayout={{ width: Dimensions.get('window').width }}
+        onIndexChange={index => this.handleIndexChange(index)}
+        initialLayout={{ width: Dimensions.get("window").width }}
       />
     );
   }

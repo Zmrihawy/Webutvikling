@@ -25,7 +25,7 @@ export default ListView = (props) => {
   };
 
   const saveData = (component) => {
-    console.log("saving", component)
+    console.log('saving', component);
     AsyncStorage.getItem(component._id)
       .then((storedComponent) => {
         const newProduct = JSON.parse(storedComponent);
