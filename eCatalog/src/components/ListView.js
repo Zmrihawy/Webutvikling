@@ -1,15 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
-  View, StyleSheet, ScrollView, AsyncStorage
+  View, StyleSheet, ScrollView, AsyncStorage, Text
 } from 'react-native';
 import { List, Button, DataTable } from 'react-native-paper';
 
 import Sidebar from './SideBar';
+import { backendURL } from '../../config';
 
 export default ListView = (props) => {
-  const { components } = props;
+  const [components, setComponents] = useState({ components: [] });
   const [expandedLists, setExpandedLists] = useState({});
   const [filter, setfilter] = useState(false);
+  const [query, setQuery] = useState('');
+  const [totPages, setTotPages] = useState(1);
+  const [pageNum, setPageNum] = useState(0);
 
   const handlePress = (componentName) => {
     expandedLists[componentName] = !expandedLists[componentName];
@@ -24,8 +28,37 @@ export default ListView = (props) => {
     setfilter(!filter);
   };
 
+  const fetchData = (query) => {
+    setQuery(query);
+    const url = `${backendURL
+    }component/pagination/?${
+      query
+    }${pageNum ? `pageNum=${pageNum}` : ''}`;
+    fetch(url)
+      .then((res) => res.json())
+      .then((res) => {
+        setTotPages(res.totPages);
+        setComponents(res);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    setQuery(query);
+    const url = `${backendURL
+    }component/pagination/?${
+      query
+    }${pageNum ? `pageNum=${pageNum}` : ''}`;
+    fetch(url)
+      .then((res) => res.json())
+      .then((res) => {
+        setTotPages(res.totPages);
+        setComponents(res);
+      })
+      .catch((err) => console.log(err));
+  }, [JSON.stringify(components.components), query, pageNum]);
+
   const saveData = (component) => {
-    console.log('saving', component);
     AsyncStorage.getItem(component._id)
       .then((storedComponent) => {
         const newProduct = JSON.parse(storedComponent);
@@ -43,42 +76,53 @@ export default ListView = (props) => {
       .catch((err) => console.log(err));
   };
 
-  const mappedComponents = components.map((component, i) => (
-    <List.Accordion
-      key={component._id}
-      style={{ backgroundColor: 'white', marginTop: 5 }}
-      title={component.name}
-      left={(component) => <List.Icon {...component} />}
-      expanded={expandedLists[component.name]}
-      onPress={() => handlePress(component.name)}
-    >
-      <List.Item style={listItemStyle} title={component.description} />
-      <List.Item style={listItemStyle} title={component.producer} />
-      <List.Item style={listItemStyle} title={component.category} />
-      <List.Item style={listItemStyle} title={`${component.price}kr`} />
-      <Button icon="" mode="contained" onPress={() => saveData(component)}>
-        Add to shopping cart
-      </Button>
-    </List.Accordion>
-  ));
+  const mappedComponents = components && components.components && components.components.length > 1
+    ? components.components.map((component, i) => (
+      <List.Accordion
+        key={component._id}
+        style={{ backgroundColor: 'white', marginTop: 5 }}
+        title={component.name}
+        left={(component) => <List.Icon {...component} />}
+        expanded={expandedLists[component.name]}
+        onPress={() => handlePress(component.name)}
+      >
+        <List.Item style={listItemStyle} title={component.description} />
+        <List.Item style={listItemStyle} title={component.producer} />
+        <List.Item style={listItemStyle} title={component.category} />
+        <List.Item style={listItemStyle} title={`${component.price}kr`} />
+        <Button
+          icon=""
+          mode="contained"
+          onPress={() => saveData(component)}
+        >
+              Add to shopping cart
+        </Button>
+      </List.Accordion>
+    ))
+    : [];
 
   return (
-    <View>
+    <View style={{height: '97%'}}>
+      <View style={(styles.center, styles.heading)}>
+        <Text style={styles.h1}>eCatalog</Text>
+        <Text style={styles.small}>home for electronics</Text>
+      </View>
+
       <View style={styles.heading}>
         <Button mode="contained" onPress={filterBy}>
           Filter by
         </Button>
-        <Sidebar filter={filter} />
+        <Sidebar filter={filter} setQuery={fetchData} />
       </View>
 
       <View style={{ alignItems: 'center', width: '100%', marginBottom: 8 }}>
         <DataTable.Pagination
-          page={1}
-          numberOfPages={3}
+          page={pageNum}
+          numberOfPages={totPages}
           onPageChange={(page) => {
-            console.log(page);
+            setPageNum(page);
           }}
-          label="Page 1 of 6"
+          label={`Page ${pageNum + 1} of ${totPages}`}
         />
       </View>
 
@@ -92,10 +136,10 @@ export default ListView = (props) => {
 };
 
 const styles = StyleSheet.create({
-  margin: { margin: 35 },
-  h1: { fontSize: 28 },
+  margin: { margin: 10 },
+  h1: { fontSize: 20 },
   center: { alignItems: 'center' },
   small: { fontSize: 10 },
-  heading: { margin: 10 },
+  heading: { margin: 3 },
   body: { color: 'white' }
 });

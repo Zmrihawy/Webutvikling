@@ -48,21 +48,19 @@ export default ShoppingCartView = (props) => {
   };
 
   const buyItems = () => {
+    if (componentsVar.length > 0) {
+      showSnack();
+    }
     setComponentsVar([]);
-    showSnack();
     clearAsyncStorage();
   };
 
   return (
     <View style={styles.margin}>
       <Button
-        title={
-          `Buy items in cart for ${
-            componentsVar
-              .map((x) => x.component.price * x.count)
-              .reduce((i, j) => i + j, 0)
-          } kr `
-        }
+        title={`Buy items in cart for ${componentsVar
+          .map((x) => x.component.price * x.count)
+          .reduce((i, j) => i + j, 0)} kr `}
         onPress={buyItems}
       />
       <ScrollView>
