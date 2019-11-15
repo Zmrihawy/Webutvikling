@@ -30,6 +30,8 @@ export default class SideBar extends React.Component {
   createQueryFromParams = () => {
     const { setQuery } = this.props;
 
+    console.log("state in sidebar", this.state)
+
     const filterField = this.state.producerFilter ? 'producer' : 'category';
     const filterVal = this.state.producerFilter
       ? this.state.producerFilter
@@ -38,7 +40,7 @@ export default class SideBar extends React.Component {
     const sortBy = this.state.checked.checked1;
     const objectsPerPage = '';
     const pageNum = '';
-    const nameSearch = '';
+    const nameSearch = this.state.value;
 
     const queryTmp = (filterVal ? `filterVal=${filterVal}&` : '')
       + (nameSearch ? `nameSearch=${nameSearch}&` : '')
