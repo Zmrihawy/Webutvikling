@@ -48,8 +48,10 @@ export default ShoppingCartView = (props) => {
   };
 
   const buyItems = () => {
+    if (componentsVar.length > 0) {
+      showSnack();
+    }
     setComponentsVar([]);
-    showSnack();
     clearAsyncStorage();
   };
 
