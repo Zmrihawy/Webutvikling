@@ -57,7 +57,7 @@ export default ListView = (props) => {
             <Button mode="contained" onPress={filterBy}>
                 Filter by
             </Button>
-            <Sidebar filter={filter}/>
+            <Sidebar filter={filter} />
           </View>
         
           <View style={{alignItems: 'center', width: '100%', marginBottom: 8}}>
