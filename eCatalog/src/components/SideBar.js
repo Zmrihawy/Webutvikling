@@ -98,7 +98,7 @@ export default class SideBar extends React.Component {
       <Modal visible={filter === active} animationType="slide">
         <View
           style={{
-            flex: 0.6,
+            flex: 1,
             justifyContent: 'center',
             marginLeft: 40
           }}
