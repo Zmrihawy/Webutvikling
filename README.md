@@ -25,5 +25,6 @@ Searched components are dispalyed on the home screen as expandable lists that co
 ### User generated data
 A user has possibility to add items to their shooping cart. The item is automatically added to the shopping cart and the user can decide to buy the items in their cart. Just to metion, ounce an item is added to the users shopping cart, it can not deleted from it.  
 
+## Techonology
 ### React Native 
 React native is a javascript library which enable us to create apps for Android and iOS using React.React Native combines the best parts of native development with React, a best-in-class JavaScript library for building user interfaces.
