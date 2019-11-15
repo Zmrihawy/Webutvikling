@@ -21,6 +21,7 @@ export default class App extends React.Component {
     };
     this.handleIndexChange = this.handleIndexChange.bind(this);
     this.clearAsyncStorage = this.clearAsyncStorage.bind(this);
+    this.ShoppingCartViewWrapperVar = this.ShoppingCartViewWrapperVar.bind(this);
   }
 
   clearAsyncStorage = async () => {
@@ -43,15 +44,16 @@ export default class App extends React.Component {
     });
   };
 
+
+  ShoppingCartViewWrapperVar = () => (<ShoppingCartViewWrapper components={this.state.storedComponents} clearAsyncStorage={this.clearAsyncStorage} />)
+
   render() {
     return (
       <TabView
         navigationState={this.state}
         renderScene={SceneMap({
           first: MainView,
-          second: () => (
-            <ShoppingCartViewWrapper components={this.state.storedComponents} clearAsyncStorage={this.clearAsyncStorage} />
-          )
+          second: this.ShoppingCartViewWrapperVar
         })}
         onIndexChange={(index) => this.handleIndexChange(index)}
         initialLayout={{ width: Dimensions.get('window').width }}

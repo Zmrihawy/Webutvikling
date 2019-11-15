@@ -5,7 +5,7 @@ import {
 import { List, Snackbar } from 'react-native-paper';
 
 export default ShoppingCartView = (props) => {
-  const { components, clearAsyncStorage, showSnack } = props;
+  const { components, clearAsyncStorage, showSnack,  } = props;
   const [expandedLists, setExpandedLists] = useState({});
   const [storedComponents, setStoredComponents] = useState([]);
 
@@ -24,7 +24,6 @@ export default ShoppingCartView = (props) => {
         key={component._id}
         style={{ backgroundColor: 'white', marginTop: 5 }}
         title={component.name}
-        // left={(listComponent) => <List.Icon {...listComponent} />}
         expanded={expandedLists[component.name]}
         onPress={() => handlePress(component.name)}
       >
@@ -40,7 +39,9 @@ export default ShoppingCartView = (props) => {
   };
 
   const buyItems = () => {
-    showSnack();
+    if (components) {
+      showSnack();
+    }
     clearAsyncStorage();
   }
 
@@ -53,7 +54,6 @@ export default ShoppingCartView = (props) => {
         <View style={styles.body}>
           <List.Section>{mappedItems}</List.Section>
         </View>
-
       </ScrollView>
     </View>
   );

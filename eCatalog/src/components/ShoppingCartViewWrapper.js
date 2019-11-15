@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { Component } from 'react';
 import {
   View, StyleSheet, ScrollView, AsyncStorage, Button
 } from 'react-native';
@@ -6,33 +6,38 @@ import { List, Snackbar } from 'react-native-paper';
 
 import ShoppingCartView from './ShoppingCartView'
 
-export default ShoppingCartViewWrapper = (props) => {
-  const { components, clearAsyncStorage } = props;
-  const [snackVisible, setSnackVisible] = useState(false);
+export default class ShoppingCartViewWrapper extends Component {
+  constructor(props) { 
+    super(props)
+    this.state = {
+      visible: false,
+    }
+  }
 
-  let mappedItems = [];
+  render() {
+    const { components, clearAsyncStorage } = this.props;
+    let mappedItems = [];
 
-  console.log("visible", snackVisible);
-  console.log("props:", props)
 
-  return (
-    <View>
-      <ShoppingCartView components={components} clearAsyncStorage={clearAsyncStorage} showSnack={setSnackVisible} />
-
-        <Snackbar
-          visible={snackVisible}
-          onDismiss={() => (false)}
-          action={{
-            label: 'Undo',
-            onPress: () => {
-              // Do something
-            },
-          }}
-        >
-          Hey there! I'm a Snackbar.
-        </Snackbar>
-    </View>
-  );
+    return (
+      <View>
+        <ShoppingCartView components={components} clearAsyncStorage={clearAsyncStorage} showSnack={() => {console.log("setting to true"); this.setState({visible: true} )}}
+        />
+          <Snackbar
+            visible={this.state.visible}
+            onDismiss={() => (this.setState(false))}
+            action={{
+              label: 'Undo',
+              onPress: () => {
+                // Do something
+              },
+            }}
+          >
+              Thank you for your purchase!
+          </Snackbar>
+      </View>
+    );
+  }
 };
 
 const styles = StyleSheet.create({
