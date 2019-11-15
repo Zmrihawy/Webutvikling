@@ -47,7 +47,7 @@ export default ShoppingCartView = (props) => {
 
   return (
     <View style={styles.margin}>
-      <Button title={"Buy items in cart for " + components.map(x => x.component.price * x.count).reduce((i, j) => (i + j), 0) + " kr "} onPress={buyItems}>
+      <Button title={"Buy items in cart for " + componentsVar.map(x => x.component.price * x.count).reduce((i, j) => (i + j), 0) + " kr "} onPress={buyItems}>
       </Button>
       <ScrollView>
         <View style={styles.body}>
