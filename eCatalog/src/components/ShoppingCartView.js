@@ -3,14 +3,12 @@ import {
   View, StyleSheet, ScrollView, AsyncStorage
 } from 'react-native';
 
-import {
-  List
-} from 'react-native-paper';
+import { List } from 'react-native-paper';
 
 export default ShoppingCartView = (props) => {
   const { components } = props;
   const [expandedLists, setExpandedLists] = useState({});
-  const [ storedComponents, setStoredComponents ] = useState([]);
+  const [storedComponents, setStoredComponents] = useState([]);
   let mappedItems = [];
 
   const handlePress = (componentName) => {
@@ -20,18 +18,17 @@ export default ShoppingCartView = (props) => {
 
   useEffect(() => {
     AsyncStorage.getAllKeys((err1, keys) => {
-      if (err1) console.log(err1)
+      if (err1) console.log(err1);
       AsyncStorage.multiGet(keys, (err2, currentStoredComponents) => {
-        if (err2) console.log(err2)
+        if (err2) console.log(err2);
         setStoredComponents(currentStoredComponents.map((x) => JSON.parse(x[1])));
       });
     });
   }, [JSON.stringify(storedComponents)]);
 
-
-  console.log("stored: ", storedComponents)
+  console.log('stored: ', storedComponents);
   mappedItems = components
-    .map(x => x.component)
+    .map((x) => x.component)
     .map((component) => (
       <List.Accordion
         key={component._id}
