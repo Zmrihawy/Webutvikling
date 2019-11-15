@@ -1,5 +1,4 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import ListView from './src/components/ListView';
 import { View, StyleSheet, Dimensions, AsyncStorage } from "react-native";

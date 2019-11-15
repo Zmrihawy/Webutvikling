@@ -99,7 +99,6 @@ export default class SideBar extends React.Component {
         <View
           style={{
             flex: 0.6,
-            alignItems: 'left',
             justifyContent: 'center',
             marginLeft: 40
           }}
