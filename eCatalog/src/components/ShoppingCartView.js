@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import {
-  View, StyleSheet, ScrollView, AsyncStorage
+  View, StyleSheet, ScrollView, AsyncStorage, Button
 } from 'react-native';
 
 import { List } from 'react-native-paper';
 
 export default ShoppingCartView = (props) => {
-  const { components } = props;
+  const { components, clearAsyncStorage } = props;
   const [expandedLists, setExpandedLists] = useState({});
   const [storedComponents, setStoredComponents] = useState([]);
   let mappedItems = [];
@@ -16,17 +16,6 @@ export default ShoppingCartView = (props) => {
     setExpandedLists(expandedLists);
   };
 
-  useEffect(() => {
-    AsyncStorage.getAllKeys((err1, keys) => {
-      if (err1) console.log(err1);
-      AsyncStorage.multiGet(keys, (err2, currentStoredComponents) => {
-        if (err2) console.log(err2);
-        setStoredComponents(currentStoredComponents.map((x) => JSON.parse(x[1])));
-      });
-    });
-  }, [JSON.stringify(storedComponents)]);
-
-  console.log('stored: ', storedComponents);
   mappedItems = components
     .map((x) => x.component)
     .map((component) => (
@@ -34,20 +23,16 @@ export default ShoppingCartView = (props) => {
         key={component._id}
         style={{ backgroundColor: 'white', marginTop: 5 }}
         title={component.name}
-        left={(listComponent) => <List.Icon {...listComponent} />}
+        // left={(listComponent) => <List.Icon {...listComponent} />}
         expanded={expandedLists[component.name]}
         onPress={() => handlePress(component.name)}
       >
         <List.Item style={listItemStyle} title={component.description} />
         <List.Item style={listItemStyle} title={component.producer} />
         <List.Item style={listItemStyle} title={component.category} />
-        <List.Item style={listItemStyle} title={`${component.price}kr`} />
+        <List.Item style={listItemStyle} title={component.price + "kr"} />
       </List.Accordion>
     ));
-
-  const clearAsyncStorage = async () => {
-    AsyncStorage.clear();
-  };
 
   const listItemStyle = {
     backgroundColor: '#e8f4f8'
@@ -55,6 +40,9 @@ export default ShoppingCartView = (props) => {
 
   return (
     <View style={styles.margin}>
+      <Button title={"buy button"} onPress={clearAsyncStorage}>
+        {"Buy items in cart"}
+      </Button>
       <ScrollView>
         <View style={styles.body}>
           <List.Section>{mappedItems}</List.Section>

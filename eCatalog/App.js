@@ -19,7 +19,15 @@ export default class App extends React.Component {
       ]
     };
     this.handleIndexChange = this.handleIndexChange.bind(this);
+    this.clearAsyncStorage = this.clearAsyncStorage.bind(this);
   }
+
+  clearAsyncStorage = async () => {
+    AsyncStorage.clear();
+    this.setState({
+      storedComponents: []
+    });
+  };
 
   handleIndexChange = (index) => {
     this.setState({ index });
@@ -41,7 +49,7 @@ export default class App extends React.Component {
         renderScene={SceneMap({
           first: MainView,
           second: () => (
-            <ShoppingCartView components={this.state.storedComponents} />
+            <ShoppingCartView components={this.state.storedComponents} clearAsyncStorage={this.clearAsyncStorage} />
           )
         })}
         onIndexChange={(index) => this.handleIndexChange(index)}
