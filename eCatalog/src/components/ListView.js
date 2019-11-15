@@ -1,19 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
-  View, Text, StyleSheet, ScrollView
+  View, StyleSheet, ScrollView, AsyncStorage
 } from 'react-native';
 import { List, Button, DataTable } from 'react-native-paper';
 
 import Sidebar from './SideBar';
 import { backendURL } from '../../config';
 
-export default ListView = () => {
-  const [components, setComponents] = useState([]);
+export default ListView = (props) => {
+  const { components } = props;
   const [expandedLists, setExpandedLists] = useState({});
   const [filter, setfilter] = useState(false);
-  const [query, setQuery] = useState('');
 
-  _handlePress = (componentName) => {
+  const handlePress = (componentName) => {
     expandedLists[componentName] = !expandedLists[componentName];
     setExpandedLists(expandedLists);
   };
@@ -22,64 +21,55 @@ export default ListView = () => {
     backgroundColor: '#e8f4f8'
   };
 
-  const fetchData = (query) => {
-    setQuery(query);
-    console.log('fetching wtith query: ', query);
-    const url = `${backendURL}component/pagination/?${query}`;
-    console.log('fetching with url ', url);
-    fetch(url)
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res);
-        setComponents(res);
-      })
-      .catch((err) => console.log('error', err));
-  };
-
-  useEffect(() => {
-    console.log('fetching wtith query in useeffect: ', query);
-    fetch(`${backendURL}component/pagination/?${query}`)
-      .then((res) => res.json())
-      .then((res) => {
-        setComponents(res);
-      })
-      .catch((err) => console.log('error', err));
-  }, [JSON.stringify(components.components)]);
-
-  const mappedComponents = components && components.components && components.components.length > 0
-    ? components.components.map((component, i) => (
-      <List.Accordion
-        key={i}
-        style={{ backgroundColor: 'white', marginTop: 5, borderRadius: 4 }}
-        title={component.name}
-        left={(component) => <List.Icon {...component} />}
-        expanded={expandedLists[component.name]}
-        onPress={() => _handlePress(component.name)}
-      >
-        <List.Item style={listItemStyle} title={component.description} />
-        <List.Item style={listItemStyle} title={component.producer} />
-        <List.Item style={listItemStyle} title={component.category} />
-        <List.Item style={listItemStyle} title={`${component.price}kr`} />
-      </List.Accordion>
-    ))
-    : [];
-
-  filterBy = () => {
+  const filterBy = () => {
     setfilter(!filter);
   };
-  console.log('Mapped', mappedComponents);
-  return (
-    <View style={styles.margin}>
-      <View style={(styles.center, styles.heading)}>
-        <Text style={styles.h1}>eCatalog</Text>
-        <Text style={styles.small}>home for electronics</Text>
-      </View>
 
+  const saveData = (component) => {
+    console.log('saving', component);
+    AsyncStorage.getItem(component._id)
+      .then((storedComponent) => {
+        const newProduct = JSON.parse(storedComponent);
+        if (!newProduct) {
+          return AsyncStorage.setItem(
+            component._id,
+            JSON.stringify({ component, count: 1 })
+          );
+        }
+        return AsyncStorage.setItem(
+          component._id,
+          JSON.stringify({ component, count: newProduct.count + 1 })
+        );
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const mappedComponents = components.map((component, i) => (
+    <List.Accordion
+      key={component._id}
+      style={{ backgroundColor: 'white', marginTop: 5 }}
+      title={component.name}
+      left={(component) => <List.Icon {...component} />}
+      expanded={expandedLists[component.name]}
+      onPress={() => handlePress(component.name)}
+    >
+      <List.Item style={listItemStyle} title={component.description} />
+      <List.Item style={listItemStyle} title={component.producer} />
+      <List.Item style={listItemStyle} title={component.category} />
+      <List.Item style={listItemStyle} title={`${component.price}kr`} />
+      <Button icon="" mode="contained" onPress={() => saveData(component)}>
+        Add to shopping cart
+      </Button>
+    </List.Accordion>
+  ));
+
+  return (
+    <View>
       <View style={styles.heading}>
         <Button mode="contained" onPress={filterBy}>
           Filter by
         </Button>
-        <Sidebar filter={filter} setQuery={fetchData} />
+        <Sidebar filter={filter} />
       </View>
 
       <View style={{ alignItems: 'center', width: '100%', marginBottom: 8 }}>
