@@ -4,6 +4,6 @@ const backendIP = "it2810-30.idi.ntnu.no";
 
 console.log("CHECK HERE", process.env);
 
-const backendURL = "http://" + backendIP + ":" + backendPORT + "/api/"
+const backendURL = "http://" + backendIP + ":" + backendPORT + "/api/";
 
 export { backendURL };
