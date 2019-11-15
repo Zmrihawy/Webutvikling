@@ -31,20 +31,22 @@ export default class SideBar extends React.Component {
       const {setQuery} = this.props;
 
         
-      let filterField = this.state.value ;
-      let filterVal = this.state.producerFilter;
+      let filterField = this.state.producerFilter ? "producer" : "category";
+      let filterVal = this.state.producerFilter ? this.state.producerFilter : this.state.categoryFilter;
       let isAsc = this.state.checked.checked2;
       let sortBy = this.state.checked.checked1;
       let objectsPerPage = '';
       let pageNum = '';
       let nameSearch = '';
-        
-      this.setState({
-             query: (filterVal ? "filterVal=" + filterVal + "&" : "") + (nameSearch ? "nameSearch=" + nameSearch + "&" : "") + (filterField ? "filterField=" + filterField + "&" : "") + (pageNum ? "pageNum=" + pageNum + "&" : "") + (objectsPerPage ? "objectsPerPage=" + objectsPerPage + "&" : "") + (sortBy ? "sortBy=Price&" : "") + (isAsc ? "isAsc=false&" : ""),
+
+      let queryTmp = (filterVal ? "filterVal=" + filterVal + "&" : "") + (nameSearch ? "nameSearch=" + nameSearch + "&" : "") + (filterField ? "filterField=" + filterField + "&" : "") + (pageNum ? "pageNum=" + pageNum + "&" : "") + (objectsPerPage ? "objectsPerPage=" + objectsPerPage + "&" : "") + (sortBy ? "sortBy=Price&" : "") + (isAsc ? "isAsc=false&" : "")
+
+            this.setState({
+            query: queryTmp,
              active: !this.state.active,
       });
-        
-      return setQuery(this.state.query)
+        console.log("Setting query with: ", queryTmp)
+        setQuery(queryTmp);
   };
 
 
@@ -65,7 +67,7 @@ export default class SideBar extends React.Component {
                 
                     <View style={{width: 300, border: 3,}}>
                         <TextInput
-                          style={{ height: 40, borderColor: 'black', borderWidth: 1, borderRadius: 2, padding: 10 }}
+                          style={{ height: 40, borderColor: 'grey', borderWidth: 1.5, borderRadius: 2, padding: 10 }}
                           onChangeText={text => this.onChangeText(text)}
                           value={value}
                           placeholder={'By name ... '}

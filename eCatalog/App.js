@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import ListView from './src/components/ListView';
 
@@ -10,24 +10,10 @@ import { backendURL } from './config';
 
 
 export default function App() {
-
-  const [components, setComponents] = useState([]);
-
-  useEffect(() => {
-    console.log("fetching");
-    console.log(backendURL);
-    fetch(backendURL + 'component')
-      .then(res => res.json())
-      .then(res => {
-        setComponents(res)
-      })
-      .catch(err => console.log("error", err))
-  },[JSON.stringify(components)])
-
   return (
     <PaperProvider theme={theme}>
         <View style={styles.container}>
-          <ListView components={components}/>
+          <ListView />
         </View>
     </PaperProvider>
   );
