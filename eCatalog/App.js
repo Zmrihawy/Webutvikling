@@ -6,7 +6,7 @@ import { TabView, SceneMap } from 'react-native-tab-view';
 
 
 import MainView from './MainView';
-import ShoppingCartView from './src/components/ShoppingCartView';
+import ShoppingCartViewWrapper from './src/components/ShoppingCartViewWrapper';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -50,7 +50,7 @@ export default class App extends React.Component {
         renderScene={SceneMap({
           first: MainView,
           second: () => (
-            <ShoppingCartView components={this.state.storedComponents} clearAsyncStorage={this.clearAsyncStorage} />
+            <ShoppingCartViewWrapper components={this.state.storedComponents} clearAsyncStorage={this.clearAsyncStorage} />
           )
         })}
         onIndexChange={(index) => this.handleIndexChange(index)}

@@ -5,10 +5,9 @@ import {
 import { List, Snackbar } from 'react-native-paper';
 
 export default ShoppingCartView = (props) => {
-  const { components, clearAsyncStorage } = props;
+  const { components, clearAsyncStorage, showSnack } = props;
   const [expandedLists, setExpandedLists] = useState({});
   const [storedComponents, setStoredComponents] = useState([]);
-  const [snackVisible, setSnackVisible] = useState(false);
 
   let mappedItems = [];
 
@@ -41,16 +40,12 @@ export default ShoppingCartView = (props) => {
   };
 
   const buyItems = () => {
-    console.log("before", snackVisible)
-    setSnackVisible(true);
-    console.log("after", snackVisible)
+    showSnack();
     clearAsyncStorage();
   }
 
-  console.log(snackVisible);
   return (
     <View style={styles.margin}>
-
       <Button title={"buy button"} onPress={buyItems}>
         {"Buy items in cart"}
       </Button>
@@ -60,19 +55,6 @@ export default ShoppingCartView = (props) => {
         </View>
 
       </ScrollView>
-          <Snackbar
-          visible={snackVisible}
-          onDismiss={() => setSnackVisible(false)}
-          action={{
-            label: 'Undo',
-            onPress: () => {
-              // Do something
-            },
-          }}
-        >
-          Hey there! I'm a Snackbar.
-        </Snackbar>
-
     </View>
   );
 };
