@@ -10,7 +10,7 @@ export default ListView = (props) => {
     const { components } = props;
     const [expandedLists, setExpandedLists] = useState({});
     const [filter, setfilter] = useState(false);
-    const [searchText, setSearchText] = useState("");
+    const [query, setQuery] = useState("")
 
     _handlePress = (componentName) => {
         expandedLists[componentName] = expandedLists[componentName] ? false : true;
@@ -20,7 +20,7 @@ export default ListView = (props) => {
     const listItemStyle = {
       backgroundColor: "#e8f4f8"
     }
-
+    
     const mappedComponents = components.map((component, i) => (
       <List.Accordion key={i}
              style={{backgroundColor: 'white', marginTop: 5, borderRadius: 4}}
@@ -35,29 +35,23 @@ export default ListView = (props) => {
              <List.Item style={listItemStyle} title={component.price + "kr"} />
       </List.Accordion>
     ));
-    
+
     filterBy = () => {
         setfilter(!filter);
     }
-    
+        
     return (
         <View style={styles.margin}>
           <View style={styles.center, styles.heading}>
             <Text style={styles.h1}>eCatalog</Text>
             <Text style={styles.small}>home for electronics</Text>
           </View>
-          <View>
-            <Searchbar
-              placeholder='Search for a pc, mobile, TV ... '
-              onChangeText={ text => setSearchText(text) }
-            />
-          </View>
             
           <View style={styles.heading}>
             <Button mode="contained" onPress={filterBy}>
                 Filter by
             </Button>
-            <Sidebar filter={filter} />
+            <Sidebar filter={filter} setQuery={setQuery} />
           </View>
         
           <View style={{alignItems: 'center', width: '100%', marginBottom: 8}}>

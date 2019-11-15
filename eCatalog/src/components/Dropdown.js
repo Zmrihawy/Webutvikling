@@ -12,7 +12,7 @@ export default class DropDown extends Component {
         containerStyle={{width: 200}}
         textColor='blue'
         data={ data }
-        onChangeText={(text) => {console.log("in npm component " + text); onChangeText(text)}}
+        onChangeText={(text) => {onChangeText(text)}}
       />
     );
   }

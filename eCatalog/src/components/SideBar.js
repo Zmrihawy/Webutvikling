@@ -1,6 +1,6 @@
 import React from 'react';
-import { Text, Modal, View, StyleSheet } from 'react-native';
-import { Button, Checkbox, TextInput } from 'react-native-paper';
+import { Text, Modal, View, StyleSheet, TextInput } from 'react-native';
+import { Button, Checkbox } from 'react-native-paper';
 import DropDown  from './Dropdown';
 
 export default class SideBar extends React.Component {
@@ -15,13 +15,23 @@ export default class SideBar extends React.Component {
             active: true,
             text: '',
             query: '',
+            value: '',
         }
     }
     
+    onChangeText = (text) => {
+        this.setState({
+               value: text
+        });
+    };
+
     
     createQueryFromParams = () => {
+      
+      const {setQuery} = this.props;
+
         
-      let filterField = this.state.categoryFilter ;
+      let filterField = this.state.value ;
       let filterVal = this.state.producerFilter;
       let isAsc = this.state.checked.checked2;
       let sortBy = this.state.checked.checked1;
@@ -34,12 +44,12 @@ export default class SideBar extends React.Component {
              active: !this.state.active,
       });
         
-        return console.log('Query :' + this.state.query)
+      return setQuery(this.state.query)
   };
 
 
     render(){
-        const { checked, active, query, producerFilter, categoryFilter, priceSort, ascSort, text } = this.state;
+        const { checked, active, query, producerFilter, categoryFilter, priceSort, ascSort, text, value } = this.state;
         const { filter } = this.props;
         return (
             <Modal visible={filter === active} animationType={'slide'}>
@@ -49,8 +59,18 @@ export default class SideBar extends React.Component {
                     <Text style={{fontSize: 10}}>home for electronics</Text>
                 </View>
             
-                <View style={{grid: 0.8,  alignItems: 'left', justifyContent: 'center', marginTop: 10, marginLeft: 50, marginRight: 50, padding: 20, borderRadius: 8, backgroundColor: '#D0D3F4',}}>
+                <View style={{grid: 0.8,  alignItems: 'left', justifyContent: 'center', marginTop: 10, padding: 20, backgroundColor: '#D0D3F4',}}>
+                
                     <Text style={{fontSize: 25, marginBottom: 10, marginTop: 2}}> Filter by ... </Text>
+                
+                    <View style={{width: 300, border: 3,}}>
+                        <TextInput
+                          style={{ height: 40, borderColor: 'black', borderWidth: 1, borderRadius: 2, padding: 10 }}
+                          onChangeText={text => this.onChangeText(text)}
+                          value={value}
+                          placeholder={'By name ... '}
+                        />
+                    </View>
             
                     <View>
                         <View>
