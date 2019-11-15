@@ -1,53 +1,46 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { createAppContainer } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
 
-import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
-import ListView from './src/components/ListView';
+import * as React from 'react';
+import { View, StyleSheet, Dimensions, StatusBar } from 'react-native';
+import { TabView, SceneMap } from 'react-native-tab-view';
 
-import { backendURL } from './config';
+import MainView from './MainView';
+import ShoppingCartView from './ShoppingCartView';
 
-export default function App() {
-  const [components, setComponents] = useState([]);
+const FirstRoute = () => (
+  <View style={[styles.scene, { backgroundColor: '#ff4081' }]} />
+);
 
-  useEffect(() => {
-    console.log('fetching');
-    console.log(backendURL);
-    fetch(`${backendURL}component`)
-      .then((res) => res.json())
-      .then((res) => {
-        setComponents(res);
-      })
-      .catch((err) => console.log('error', err));
-  }, [JSON.stringify(components)]);
+const SecondRoute = () => (
+  <View style={[styles.scene, { backgroundColor: '#673ab7' }]} />
+);
 
-  return (
-    <PaperProvider theme={theme}>
-      <View style={styles.container}>
-        <ListView components={components} />
-      </View>
-    </PaperProvider>
-  );
+export default class App extends React.Component {
+  state = {
+    index: 0,
+    routes: [
+      { key: 'first', title: 'Browse' },
+      { key: 'second', title: 'ShoppingCart' },
+    ],
+  };
+
+  render() {
+    return (
+        <TabView
+        navigationState={this.state}
+        renderScene={SceneMap({
+          first: MainView,
+          second: ShoppingCartView,
+        })}
+        onIndexChange={index => this.setState({ index })}
+        initialLayout={{ width: Dimensions.get('window').width }}
+      />
+    );
+  }
 }
 
-// Styles
 const styles = StyleSheet.create({
-  container: {
+  scene: {
     flex: 1,
-    backgroundColor: '#D0D3F4'
-    // alignItems: 'center',
-    // justifyContent: 'center',
-  }
+  },
 });
 
-// DefaultTheme colors
-const theme = {
-  ...DefaultTheme,
-  roundness: 4,
-  colors: {
-    ...DefaultTheme.colors,
-    primary: 'blue',
-    accent: 'green'
-  }
-};
