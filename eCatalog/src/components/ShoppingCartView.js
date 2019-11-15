@@ -1,51 +1,54 @@
 import React, { useState, useEffect } from 'react';
 import {
-  View, Text, StyleSheet, ScrollView, AsyncStorage
+  View, StyleSheet, ScrollView, AsyncStorage
 } from 'react-native';
 
 import {
-  Searchbar, List, Checkbox, Button
+  List
 } from 'react-native-paper';
 
 export default ShoppingCartView = (props) => {
   const { components } = props;
   const [expandedLists, setExpandedLists] = useState({});
+  const [ storedComponents, setStoredComponents ] = useState([]);
   let mappedItems = [];
 
-  _handlePress = (componentName) => {
+  const handlePress = (componentName) => {
     expandedLists[componentName] = !expandedLists[componentName];
     setExpandedLists(expandedLists);
   };
 
-  try {
-    AsyncStorage.getAllKeys((err, keys) => {
-      AsyncStorage.multiGet(keys, (err, components) => {
-        console.log('heeeredsagsgfdsgsg', components);
-
-        mappedItems = components
-          .map((x) => JSON.parse(x[1]))
-          .map((component, i) => {
-            <List.Accordion
-              key={i}
-              style={{ backgroundColor: 'white', marginTop: 5 }}
-              title={component.name}
-              left={(component) => <List.Icon {...component} />}
-              expanded={expandedLists[component.name]}
-              onPress={() => _handlePress(component.name)}
-            >
-              <List.Item style={listItemStyle} title={component.description} />
-              <List.Item style={listItemStyle} title={component.producer} />
-              <List.Item style={listItemStyle} title={component.category} />
-              <List.Item style={listItemStyle} title={`${component.price}kr`} />
-            </List.Accordion>;
-          });
+  useEffect(() => {
+    AsyncStorage.getAllKeys((err1, keys) => {
+      if (err1) console.log(err1)
+      AsyncStorage.multiGet(keys, (err2, currentStoredComponents) => {
+        if (err2) console.log(err2)
+        setStoredComponents(currentStoredComponents.map((x) => JSON.parse(x[1])));
       });
     });
-  } catch (error) {
-    alert(error);
-  }
+  }, [JSON.stringify(storedComponents)]);
 
-  _clearAsyncStorage = async () => {
+
+  console.log("stored: ", storedComponents)
+  mappedItems = components
+    .map(x => x.component)
+    .map((component) => (
+      <List.Accordion
+        key={component._id}
+        style={{ backgroundColor: 'white', marginTop: 5 }}
+        title={component.name}
+        left={(listComponent) => <List.Icon {...listComponent} />}
+        expanded={expandedLists[component.name]}
+        onPress={() => handlePress(component.name)}
+      >
+        <List.Item style={listItemStyle} title={component.description} />
+        <List.Item style={listItemStyle} title={component.producer} />
+        <List.Item style={listItemStyle} title={component.category} />
+        <List.Item style={listItemStyle} title={`${component.price}kr`} />
+      </List.Accordion>
+    ));
+
+  const clearAsyncStorage = async () => {
     AsyncStorage.clear();
   };
 
