@@ -14,10 +14,6 @@ export default class SideBar extends React.Component {
 
     render(){
         const { checked, active } = this.state;
-        console.log("Checked:", checked)
-        console.log("Spread 1:", {...checked, checked1: "LALALALALALA"})
-        let x;
-        console.log(!x)
         const { filter } = this.props;
         return (
             <Modal visible={filter === active} animationType={'slide'}>
@@ -26,33 +22,38 @@ export default class SideBar extends React.Component {
                     <View>
                         <View style={{flexDirection: 'row'}}>
                             <View style={styles.checkbox} >
-                                <Checkbox status={ checked.checked1 ? 'checked' : 'unchecked'} onPress={(e) => {
-                console.log(e)
-                this.setState({ checked: {...checked, checked1: !checked.checked1}}); }}/>
+                                <Checkbox status={ checked.checked1 ? 'checked' : 'unchecked'} onPress={() => { this.setState({ checked: {...checked, checked1: !checked.checked1}}); }}/>
                             </View>
                             <Text style={styles.chectext}>Name</Text>
                         </View>
                 
                         <View style={{flexDirection: 'row'}}>
                             <View style={styles.checkbox} >
-                <Checkbox status={ checked.checked2 ? 'checked' : 'unchecked'} onPress={() => { this.setState({ checked: {...checked, checked2: !checked.checked2}}); }}/>
+                                <Checkbox status={ checked.checked2 ? 'checked' : 'unchecked'} onPress={() => { this.setState({ checked: {...checked, checked2: !checked.checked2}}); }}/>
                             </View>
                             <Text style={styles.chectext}>Price</Text>
                         </View>
                 
                         <View style={{flexDirection: 'row'}}>
                             <View style={styles.checkbox} >
-                <Checkbox status={ checked.checked3 ? 'checked' : 'unchecked'} onPress={() => { this.setState({ checked: {...checked, checked3: !checked.checked3}}); }}/>
+                                <Checkbox status={ checked.checked3 ? 'checked' : 'unchecked'} onPress={() => { this.setState({ checked: {...checked, checked3: !checked.checked3}}); }}/>
                             </View>
                             <Text style={styles.chectext}>Producer</Text>
                         </View>
                 
                         <View style={{flexDirection: 'row'}} >
                             <View style={styles.checkbox} >
-                <Checkbox status={ checked.checked4 ? 'checked' : 'unchecked'} onPress={() => { this.setState({ checked: { ...checked, checked4: !checked.checked4}}); }}/>
+                                <Checkbox status={ checked.checked4 ? 'checked' : 'unchecked'} onPress={() => { this.setState({ checked: { ...checked, checked4: !checked.checked4}}); }}/>
                             </View>
                             <Text style={styles.chectext}>Asc/Des order </Text>
                         </View>
+                
+                
+                
+                
+                
+                
+                        <Text style={{fontSize: 25, marginBottom: 10}}> Sort by ... </Text>
                      
                         <Button mode="contained" style={{ marginTop: 5}} onPress={() => {this.setState({ active: !active }); }}>
                             Submit
