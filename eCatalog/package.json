@@ -20,7 +20,14 @@
     "react-navigation": "^4.0.10"
   },
   "devDependencies": {
-    "babel-preset-expo": "^7.1.0"
+    "babel-eslint": "^10.0.3",
+    "babel-preset-expo": "^7.1.0",
+    "eslint": "^6.6.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.16.0",
+    "prettier": "^1.19.1"
   },
   "private": true
 }
