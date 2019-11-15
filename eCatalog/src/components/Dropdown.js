@@ -3,33 +3,15 @@ import { Dropdown } from 'react-native-material-dropdown';
  
 export default class DropDown extends Component {
     render() {
-        let data = [{
-            value: 'Apple',
-            }, {
-            value: 'Microsoft',
-            }, {
-            value: 'Samsung',
-            }, {
-            value: 'LG',
-            }, {
-            value: 'Philips',
-            }, {
-            value: 'Lenovo',
-            }, {
-            value: 'Logitech',
-            }, {
-            value: 'Nokia',
-            }, {
-            value: 'Amazon',
-        }];
+    const { name, data } = this.props;
  
     return (
       <Dropdown
-        label='Producer'
+        label={name}
         baseColor='black'
         containerStyle={{width: 200}}
         textColor='blue'
-        data={data}
+        data={ data }
       />
     );
   }

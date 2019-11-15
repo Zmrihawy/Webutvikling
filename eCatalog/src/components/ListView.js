@@ -77,10 +77,6 @@ export default ListView = (props) => {
             </View>
           </ScrollView>
         
-            <View>
-                <Text> Footer </Text>
-            </View>
-        
         </View>
     );
 }
