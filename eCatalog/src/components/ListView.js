@@ -8,6 +8,7 @@ export default ListView = (props) => {
     
     const { components } = props;
     const [expandedLists, setExpandedLists] = useState({});
+    const [filter, setfilter] = useState(false);
     const [searchText, setSearchText] = useState("");
 
     _handlePress = (componentName) => {
@@ -34,8 +35,11 @@ export default ListView = (props) => {
       </List.Accordion>
     ));
     
-    
-    
+   
+
+    filterBy = () => {
+        setfilter(!filter);
+    }
     
     return (
         <View style={styles.margin}>
@@ -51,10 +55,11 @@ export default ListView = (props) => {
           </View>
             
           <View style={styles.heading}>
-            <Button mode="contained" onPress={Sidebar}>
+            <Button mode="contained" onPress={filterBy}>
                 Filter by
             </Button>
-            <Sidebar filter={true}/>
+            <Sidebar filter={filter}/>
+            
           </View>
             
           <ScrollView>
