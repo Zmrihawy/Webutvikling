@@ -7,8 +7,6 @@ import ListView from "./src/components/ListView";
 import { backendURL } from "./config";
 
 export default function MainView() {
-
-
   return (
     <PaperProvider theme={theme}>
       <StatusBar hidden />

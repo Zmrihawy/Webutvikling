@@ -30,7 +30,7 @@ export default class SideBar extends React.Component {
   createQueryFromParams = () => {
     const { setQuery } = this.props;
 
-    console.log("state in sidebar", this.state)
+    console.log('state in sidebar', this.state);
 
     const filterField = this.state.producerFilter ? 'producer' : 'category';
     const filterVal = this.state.producerFilter

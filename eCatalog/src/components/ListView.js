@@ -8,12 +8,12 @@ import Sidebar from './SideBar';
 import { backendURL } from '../../config';
 
 export default ListView = (props) => {
-  const [ components, setComponents ] = useState({components: []})
+  const [components, setComponents] = useState({ components: [] });
   const [expandedLists, setExpandedLists] = useState({});
   const [filter, setfilter] = useState(false);
   const [query, setQuery] = useState('');
   const [totPages, setTotPages] = useState(1);
-  const [pageNum, setPageNum] = useState(0)
+  const [pageNum, setPageNum] = useState(0);
 
   const handlePress = (componentName) => {
     expandedLists[componentName] = !expandedLists[componentName];
@@ -30,26 +30,33 @@ export default ListView = (props) => {
 
   const fetchData = (query) => {
     setQuery(query);
-    const url = backendURL + "component/pagination/?" + query + (pageNum ? "pageNum=" + pageNum : "");
+    const url = `${backendURL
+    }component/pagination/?${
+      query
+    }${pageNum ? `pageNum=${pageNum}` : ''}`;
     fetch(url)
-      .then(res => res.json())
-      .then(res => {
+      .then((res) => res.json())
+      .then((res) => {
         setTotPages(res.totPages);
-        setComponents(res)})
-      .catch(err => console.log(err))
-  }
+        setComponents(res);
+      })
+      .catch((err) => console.log(err));
+  };
 
   useEffect(() => {
     setQuery(query);
-    const url = backendURL + "component/pagination/?" + query + (pageNum ? "pageNum=" + pageNum : "");
+    const url = `${backendURL
+    }component/pagination/?${
+      query
+    }${pageNum ? `pageNum=${pageNum}` : ''}`;
     fetch(url)
-      .then(res => res.json())
-      .then(res => {
+      .then((res) => res.json())
+      .then((res) => {
         setTotPages(res.totPages);
-        setComponents(res)})
-      .catch(err => console.log(err))
-  }, [JSON.stringify(components), query, pageNum])
-
+        setComponents(res);
+      })
+      .catch((err) => console.log(err));
+  }, [JSON.stringify(components), query, pageNum]);
 
   const saveData = (component) => {
     AsyncStorage.getItem(component._id)
@@ -69,27 +76,30 @@ export default ListView = (props) => {
       .catch((err) => console.log(err));
   };
 
-
-  const mappedComponents = components && components.components && components.components.length > 1 ? components.components.map((component, i) => (
-    <List.Accordion
-      key={component._id}
-      style={{ backgroundColor: 'white', marginTop: 5 }}
-      title={component.name}
-      left={(component) => <List.Icon {...component} />}
-      expanded={expandedLists[component.name]}
-      onPress={() => handlePress(component.name)}
-    >
-      <List.Item style={listItemStyle} title={component.description} />
-      <List.Item style={listItemStyle} title={component.producer} />
-      <List.Item style={listItemStyle} title={component.category} />
-      <List.Item style={listItemStyle} title={`${component.price}kr`} />
-        <Button icon="" mode="contained" onPress={() => saveData(component)}>
-        Add to shopping cart
-      </Button>
-    </List.Accordion>
-  )) 
-    :
-    [];
+  const mappedComponents = components && components.components && components.components.length > 1
+    ? components.components.map((component, i) => (
+      <List.Accordion
+        key={component._id}
+        style={{ backgroundColor: 'white', marginTop: 5 }}
+        title={component.name}
+        left={(component) => <List.Icon {...component} />}
+        expanded={expandedLists[component.name]}
+        onPress={() => handlePress(component.name)}
+      >
+        <List.Item style={listItemStyle} title={component.description} />
+        <List.Item style={listItemStyle} title={component.producer} />
+        <List.Item style={listItemStyle} title={component.category} />
+        <List.Item style={listItemStyle} title={`${component.price}kr`} />
+        <Button
+          icon=""
+          mode="contained"
+          onPress={() => saveData(component)}
+        >
+              Add to shopping cart
+        </Button>
+      </List.Accordion>
+    ))
+    : [];
 
   return (
     <View style={styles.margin}>
@@ -102,15 +112,17 @@ export default ListView = (props) => {
         <Button mode="contained" onPress={filterBy}>
           Filter by
         </Button>
-        <Sidebar filter={filter} setQuery={fetchData}/>
+        <Sidebar filter={filter} setQuery={fetchData} />
       </View>
 
       <View style={{ alignItems: 'center', width: '100%', marginBottom: 8 }}>
         <DataTable.Pagination
           page={pageNum}
           numberOfPages={totPages}
-          onPageChange={(page) => {setPageNum(page)}}
-          label={"Page " + (pageNum + 1) + " of " + totPages}
+          onPageChange={(page) => {
+            setPageNum(page);
+          }}
+          label={`Page ${pageNum + 1} of ${totPages}`}
         />
       </View>
 
