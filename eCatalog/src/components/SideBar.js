@@ -47,7 +47,7 @@ export default class SideBar extends React.Component {
       + (filterField ? `filterField=${filterField}&` : '')
       + (pageNum ? `pageNum=${pageNum}&` : '')
       + (objectsPerPage ? `objectsPerPage=${objectsPerPage}&` : '')
-      + (sortBy ? 'sortBy=Price&' : '')
+      + (sortBy ? 'sortBy=price&' : '')
       + (isAsc ? 'isAsc=false&' : '');
 
     this.setState({

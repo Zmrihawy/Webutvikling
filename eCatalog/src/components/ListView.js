@@ -56,7 +56,7 @@ export default ListView = (props) => {
         setComponents(res);
       })
       .catch((err) => console.log(err));
-  }, [JSON.stringify(components), query, pageNum]);
+  }, [JSON.stringify(components.components), query, pageNum]);
 
   const saveData = (component) => {
     AsyncStorage.getItem(component._id)
