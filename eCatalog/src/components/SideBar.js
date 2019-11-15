@@ -60,15 +60,43 @@ export default class SideBar extends React.Component {
         super(props)
         this.state = {
             checked : {checked1: false, checked2: false, },
+            producerFilter : "",
+            categoryFilter : "",
             active: true,
             text: '',
-            query: '',
+            query: 'what',
         }
     }
     
+    
+    createQueryFromParams = queryParams => {
+      /* const {
+        filterVal,
+        filterField,
+        nameSearch,
+        sortBy,
+        pageNum,
+        objectsPerPage,
+        isAsc
+      } = queryParams;
+       */
+        
+      let filterField = "producer";
+      let filterVal = this.state.producerFilter;
+      return (
+        (filterVal ? "filterVal=" + filterVal + "&" : "") +
+        (nameSearch ? "nameSearch=" + nameSearch + "&" : "") +
+        (filterField ? "filterField=" + filterField + "&" : "") +
+        (pageNum ? "pageNum=" + pageNum + "&" : "") +
+        (objectsPerPage ? "objectsPerPage=" + objectsPerPage + "&" : "") +
+        (sortBy ? "sortBy=" + sortBy + "&" : "") +
+        (isAsc === "false" ? "isAsc=false&" : "")
+      );
+    };
+
 
     render(){
-        const { checked, active, query } = this.state;
+        const { checked, active, query, producerFilter, categoryFilter } = this.state;
         const { filter } = this.props;
         return (
             <Modal visible={filter === active} animationType={'slide'}>
@@ -80,14 +108,14 @@ export default class SideBar extends React.Component {
                     <Text style={{fontSize: 25, marginBottom: 10, marginTop: 2}}> Filter by ... </Text>
                     <View>
                         <View>
-                            <DropDown name={'category'} data={category} onChange={() => { this.setState({ query: query + selectedItem });  }}/>
-                            <DropDown name={'Producer'} data={producer} onChange={() => { this.setState({ query: query + selectedItem });  }}/>
+                            <DropDown name={'category'} data={category} onChangeText={(text) => { this.setState({ categoryFilter: text });  console.log("In our component " + text) }}/>
+                            <DropDown name={'Producer'} data={producer} onChangeText={(text) => { this.setState({ producerFilter: text  }); console.log("In our component " + text) }}/>
                         </View>
     
                         <Text style={{fontSize: 25, marginBottom: 20, marginTop: 50}}> Sort by ... </Text>
                         <View style={{flexDirection: 'row'}}>
                             <View style={styles.checkbox} >
-                                <Checkbox color={'blue'} status={ checked.checked1 ? 'checked' : 'unchecked'} onPress={() => { this.setState({ checked: {...checked, checked1: !checked.checked1 }}); }}/>
+                                <Checkbox color={'blue'} status={ checked.checked1 ? 'checked' : 'unchecked'} onPress={() => { this.setState({ checked: {...checked, checked1: !checked.checked1 }}); console.log("In our component " + checked.checked1)  }} />
                             </View>
                             <Text style={styles.chectext}>Price</Text>
                         </View>
