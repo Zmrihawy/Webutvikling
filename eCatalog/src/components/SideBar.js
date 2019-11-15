@@ -1,80 +1,82 @@
-import React from "react";
-import { Text, Modal, View, StyleSheet } from "react-native";
-import { Button, Checkbox, TextInput } from "react-native-paper";
-import DropDown from "./Dropdown";
+import React from 'react';
+import {
+  Text, Modal, View, StyleSheet
+} from 'react-native';
+import { Button, Checkbox, TextInput } from 'react-native-paper';
+import DropDown from './Dropdown';
 
 const producer = [
   {
-    value: "Apple"
+    value: 'Apple'
   },
   {
-    value: "Microsoft"
+    value: 'Microsoft'
   },
   {
-    value: "Samsung"
+    value: 'Samsung'
   },
   {
-    value: "LG"
+    value: 'LG'
   },
   {
-    value: "Philips"
+    value: 'Philips'
   },
   {
-    value: "Lenovo"
+    value: 'Lenovo'
   },
   {
-    value: "Logitech"
+    value: 'Logitech'
   },
   {
-    value: "Nokia"
+    value: 'Nokia'
   },
   {
-    value: "Amazon"
+    value: 'Amazon'
   },
   {
-    value: "Bosch"
+    value: 'Bosch'
   },
   {
-    value: "Bose"
+    value: 'Bose'
   },
   {
-    value: "AMD"
+    value: 'AMD'
   },
   {
-    value: "Intel"
+    value: 'Intel'
   }
 ];
 
 const category = [
   {
-    value: "Laptop"
+    value: 'Laptop'
   },
   {
-    value: "Smartphone"
+    value: 'Smartphone'
   },
   {
-    value: "TV"
+    value: 'TV'
   },
   {
-    value: "Game Console"
+    value: 'Game Console'
   },
   {
-    value: "Tablet"
+    value: 'Tablet'
   },
   {
-    value: "Headphones"
+    value: 'Headphones'
   },
   {
-    value: "Smart Watch"
+    value: 'Smart Watch'
   },
   {
-    value: "Camera"
+    value: 'Camera'
   },
   {
-    value: "Home and Leisure"
+    value: 'Home and Leisure'
   },
   {
-    value: "Processor"
+    value: 'Processor'
   }
 ];
 
@@ -84,8 +86,8 @@ export default class SideBar extends React.Component {
     this.state = {
       checked: { checked1: false, checked2: false },
       active: true,
-      text: "",
-      query: ""
+      text: '',
+      query: ''
     };
   }
 
@@ -93,30 +95,31 @@ export default class SideBar extends React.Component {
     const { checked, active, query } = this.state;
     const { filter } = this.props;
     return (
-      <Modal visible={filter === active} animationType={"slide"}>
+      <Modal visible={filter === active} animationType="slide">
         <View
           style={{
             flex: 0.6,
-            alignItems: "left",
-            justifyContent: "center",
+            alignItems: 'left',
+            justifyContent: 'center',
             marginLeft: 40
           }}
         >
           <Text style={{ fontSize: 25, marginBottom: 10 }}>
-            {" "}
-            Filter by ...{" "}
+            {' '}
+            Filter by ...
+            {' '}
           </Text>
           <View>
             <View>
               <DropDown
-                name={"category"}
+                name="category"
                 data={category}
                 onChange={() => {
                   this.setState({ query: query + selectedItem });
                 }}
               />
               <DropDown
-                name={"Producer"}
+                name="Producer"
                 data={producer}
                 onChange={() => {
                   this.setState({ query: query + selectedItem });
@@ -125,13 +128,14 @@ export default class SideBar extends React.Component {
             </View>
 
             <Text style={{ fontSize: 25, marginBottom: 20, marginTop: 50 }}>
-              {" "}
-              Sort by ...{" "}
+              {' '}
+              Sort by ...
+              {' '}
             </Text>
-            <View style={{ flexDirection: "row" }}>
+            <View style={{ flexDirection: 'row' }}>
               <View style={styles.checkbox}>
                 <Checkbox
-                  status={checked.checked1 ? "checked" : "unchecked"}
+                  status={checked.checked1 ? 'checked' : 'unchecked'}
                   onPress={() => {
                     this.setState({
                       checked: { ...checked, checked1: !checked.checked1 }
@@ -142,10 +146,10 @@ export default class SideBar extends React.Component {
               <Text style={styles.chectext}>Price</Text>
             </View>
 
-            <View style={{ flexDirection: "row" }}>
+            <View style={{ flexDirection: 'row' }}>
               <View style={styles.checkbox}>
                 <Checkbox
-                  status={checked.checked2 ? "checked" : "unchecked"}
+                  status={checked.checked2 ? 'checked' : 'unchecked'}
                   onPress={() => {
                     this.setState({
                       checked: { ...checked, checked2: !checked.checked2 }
@@ -177,7 +181,7 @@ const styles = StyleSheet.create({
     height: 40,
     width: 40,
     borderWidth: 1.5,
-    borderColor: "grey",
+    borderColor: 'grey',
     borderRadius: 3,
     marginBottom: 6
   },

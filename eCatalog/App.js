@@ -1,25 +1,25 @@
-import React, { useState, useEffect } from "react";
-import { StyleSheet, View } from "react-native";
-import ListView from "./src/components/ListView";
-import { createAppContainer } from "react-navigation";
-import { createStackNavigator } from "react-navigation-stack";
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 
-import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
+import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
+import ListView from './src/components/ListView';
 
-import { backendURL } from "./config";
+import { backendURL } from './config';
 
 export default function App() {
   const [components, setComponents] = useState([]);
 
   useEffect(() => {
-    console.log("fetching");
+    console.log('fetching');
     console.log(backendURL);
-    fetch(backendURL + "component")
-      .then(res => res.json())
-      .then(res => {
+    fetch(`${backendURL}component`)
+      .then((res) => res.json())
+      .then((res) => {
         setComponents(res);
       })
-      .catch(err => console.log("error", err));
+      .catch((err) => console.log('error', err));
   }, [JSON.stringify(components)]);
 
   return (
@@ -35,7 +35,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#D0D3F4"
+    backgroundColor: '#D0D3F4'
     // alignItems: 'center',
     // justifyContent: 'center',
   }
@@ -47,7 +47,7 @@ const theme = {
   roundness: 4,
   colors: {
     ...DefaultTheme.colors,
-    primary: "blue",
-    accent: "green"
+    primary: 'blue',
+    accent: 'green'
   }
 };

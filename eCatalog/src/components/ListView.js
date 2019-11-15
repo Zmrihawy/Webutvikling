@@ -1,43 +1,45 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import React, { useState, useEffect } from 'react';
+import {
+  View, Text, StyleSheet, ScrollView
+} from 'react-native';
 import {
   Searchbar,
   List,
   Checkbox,
   Button,
   DataTable
-} from "react-native-paper";
+} from 'react-native-paper';
 
-import Sidebar from "./SideBar";
+import Sidebar from './SideBar';
 
-export default ListView = props => {
+export default ListView = (props) => {
   const { components } = props;
   const [expandedLists, setExpandedLists] = useState({});
   const [filter, setfilter] = useState(false);
-  const [searchText, setSearchText] = useState("");
+  const [searchText, setSearchText] = useState('');
 
-  _handlePress = componentName => {
-    expandedLists[componentName] = expandedLists[componentName] ? false : true;
+  _handlePress = (componentName) => {
+    expandedLists[componentName] = !expandedLists[componentName];
     setExpandedLists(expandedLists);
   };
 
   const listItemStyle = {
-    backgroundColor: "#e8f4f8"
+    backgroundColor: '#e8f4f8'
   };
 
   const mappedComponents = components.map((component, i) => (
     <List.Accordion
       key={i}
-      style={{ backgroundColor: "white", marginTop: 5, borderRadius: 4 }}
+      style={{ backgroundColor: 'white', marginTop: 5, borderRadius: 4 }}
       title={component.name}
-      left={component => <List.Icon {...component} />}
+      left={(component) => <List.Icon {...component} />}
       expanded={expandedLists[component.name]}
       onPress={() => _handlePress(component.name)}
     >
       <List.Item style={listItemStyle} title={component.description} />
       <List.Item style={listItemStyle} title={component.producer} />
       <List.Item style={listItemStyle} title={component.category} />
-      <List.Item style={listItemStyle} title={component.price + "kr"} />
+      <List.Item style={listItemStyle} title={`${component.price}kr`} />
     </List.Accordion>
   ));
 
@@ -54,7 +56,7 @@ export default ListView = props => {
       <View>
         <Searchbar
           placeholder="Search for a pc, mobile, TV ... "
-          onChangeText={text => setSearchText(text)}
+          onChangeText={(text) => setSearchText(text)}
         />
       </View>
 
@@ -65,11 +67,11 @@ export default ListView = props => {
         <Sidebar filter={filter} />
       </View>
 
-      <View style={{ alignItems: "center", width: "100%", marginBottom: 8 }}>
+      <View style={{ alignItems: 'center', width: '100%', marginBottom: 8 }}>
         <DataTable.Pagination
           page={1}
           numberOfPages={3}
-          onPageChange={page => {
+          onPageChange={(page) => {
             console.log(page);
           }}
           label="Page 1 of 6"
@@ -88,8 +90,8 @@ export default ListView = props => {
 const styles = StyleSheet.create({
   margin: { margin: 35 },
   h1: { fontSize: 28 },
-  center: { alignItems: "center" },
+  center: { alignItems: 'center' },
   small: { fontSize: 10 },
   heading: { margin: 10 },
-  body: { color: "white" }
+  body: { color: 'white' }
 });
