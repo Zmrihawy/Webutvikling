@@ -31,25 +31,27 @@ export default class SideBar extends React.Component {
         
       this.setState({
              query: (filterVal ? "filterVal=" + filterVal + "&" : "") + (nameSearch ? "nameSearch=" + nameSearch + "&" : "") + (filterField ? "filterField=" + filterField + "&" : "") + (pageNum ? "pageNum=" + pageNum + "&" : "") + (objectsPerPage ? "objectsPerPage=" + objectsPerPage + "&" : "") + (sortBy ? "sortBy=Price&" : "") + (isAsc ? "isAsc=false&" : ""),
+             active: !this.state.active,
       });
-    
-      return (
-        console.log('This is the got query: ' + this.state.query )
-      );
-    };
+        
+        return console.log('Query :' + this.state.query)
+  };
 
 
     render(){
-        const { checked, active, query, producerFilter, categoryFilter, priceSort, ascSort } = this.state;
+        const { checked, active, query, producerFilter, categoryFilter, priceSort, ascSort, text } = this.state;
         const { filter } = this.props;
         return (
             <Modal visible={filter === active} animationType={'slide'}>
+                
                 <View style={{alignItems: 'center', marginTop: 50}}>
                     <Text style={{fontSize: 28}}>eCatalog</Text>
                     <Text style={{fontSize: 10}}>home for electronics</Text>
                 </View>
+            
                 <View style={{grid: 0.8,  alignItems: 'left', justifyContent: 'center', marginTop: 10, marginLeft: 50, marginRight: 50, padding: 20, borderRadius: 8, backgroundColor: '#D0D3F4',}}>
                     <Text style={{fontSize: 25, marginBottom: 10, marginTop: 2}}> Filter by ... </Text>
+            
                     <View>
                         <View>
                             <DropDown name={'category'} data={category} onChangeText={(text) => { this.setState({ categoryFilter: text }); }}/>
