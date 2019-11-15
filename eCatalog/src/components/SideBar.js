@@ -5,6 +5,14 @@ import {
 import { Button, Checkbox } from 'react-native-paper';
 import DropDown from './Dropdown';
 
+/**
+ * This component handles most of the building of the query
+ * string that will be sent to the backend. It has options for 
+ * entering some text to search by name, to filter by category
+ * or producer, and to sort. It builds the query, and then calls a 
+ * function (setQuery) it gets from parent component to send the query string 
+ * up the class hierarchy.
+ */
 export default class SideBar extends React.Component {
   constructor(props) {
     super(props);

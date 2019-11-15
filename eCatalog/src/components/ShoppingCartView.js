@@ -8,6 +8,11 @@ import {
 } from 'react-native';
 import { List, Snackbar } from 'react-native-paper';
 
+
+/**
+ * Component for viewing the shoppingcart, and also 
+ * buying the components
+ */
 export default ShoppingCartView = (props) => {
   const { components, clearAsyncStorage, showSnack } = props;
   const [expandedLists, setExpandedLists] = useState({});
@@ -45,6 +50,7 @@ export default ShoppingCartView = (props) => {
     backgroundColor: '#e8f4f8'
   };
 
+  // Buy items in cart. Show a messeage if components are not empty.
   const buyItems = () => {
     if (componentsVar.length > 0) {
       showSnack();

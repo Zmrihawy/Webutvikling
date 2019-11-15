@@ -7,6 +7,16 @@ import { List, Button, DataTable } from 'react-native-paper';
 import Sidebar from './SideBar';
 import { backendURL } from '../../config';
 
+/**
+ * ListView is responsible the list-based view of components.
+ * It gets the main query to get components by from its child 
+ * components, but it adds the pagination page number param 
+ * by itself. It also handles adding components to shoppingcart
+ * with asyncstorage. This is done by adding components with their
+ * mongoose id as key, and the component plus a count variable as value.
+ * The count variable is used to determine how many of this item is in 
+ * the shoppingcart.
+ */
 export default ListView = (props) => {
   const [components, setComponents] = useState({ components: [] });
   const [expandedLists, setExpandedLists] = useState({});
@@ -15,6 +25,12 @@ export default ListView = (props) => {
   const [totPages, setTotPages] = useState(1);
   const [pageNum, setPageNum] = useState(0);
 
+  // We need to record the expanded state of all components, so 
+  // when a list is pressed, we handle only that components expanded 
+  // state. This is done using a state object where the keys are component 
+  // names and values are a boolean indication expanded state. The reason
+  // we dont initialize this object to anything is because undefined values
+  // are interpreted as false, which is our desired default value.
   const handlePress = (componentName) => {
     expandedLists[componentName] = !expandedLists[componentName];
     setExpandedLists(expandedLists);
@@ -28,6 +44,12 @@ export default ListView = (props) => {
     setfilter(!filter);
   };
 
+
+
+  // useEffect and fetchData are similar, they store the current query for
+  // future use (mainly pagination), then they execute the query. Need both of
+  // them because the sidebar also needs to execute query when user hits 
+  // submit button.
   const fetchData = (query) => {
     setQuery(query);
     const url = `${backendURL
@@ -42,9 +64,7 @@ export default ListView = (props) => {
       })
       .catch((err) => console.log(err));
   };
-
   useEffect(() => {
-    setQuery(query);
     const url = `${backendURL
     }component/pagination/?${
       query

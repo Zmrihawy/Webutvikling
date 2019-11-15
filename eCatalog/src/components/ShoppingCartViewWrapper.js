@@ -10,6 +10,10 @@ import { List, Snackbar } from 'react-native-paper';
 
 import ShoppingCartView from './ShoppingCartView';
 
+/**
+ * Wrapper for ShoppingCartView, this was introduced to make
+ * the snackbar notification work.
+ */
 export default class ShoppingCartViewWrapper extends Component {
   constructor(props) {
     super(props);
@@ -21,8 +25,6 @@ export default class ShoppingCartViewWrapper extends Component {
   render() {
     const { components, clearAsyncStorage } = this.props;
     const mappedItems = [];
-
-
     return (
       <View style={styles.container}>
         <ShoppingCartView

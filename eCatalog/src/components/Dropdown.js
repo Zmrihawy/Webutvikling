@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { Dropdown } from 'react-native-material-dropdown';
 
+/**
+ * Simple dropdown React component for choosing values
+ * to filter by
+ */
 export default class DropDown extends Component {
   render() {
     const { name, data, onChangeText } = this.props;

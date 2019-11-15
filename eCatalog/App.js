@@ -9,6 +9,12 @@ import ListView from './src/components/ListView';
 import MainView from './MainView';
 import ShoppingCartViewWrapper from './src/components/ShoppingCartViewWrapper';
 
+/**
+ * Main React component. Responsible for managing
+ * the tab view between shopping cart and list view.
+ * Also fetches components from asyncstorage when tab is
+ * changed.
+ */
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -19,6 +25,8 @@ export default class App extends React.Component {
         { key: 'first', title: 'Browse' },
         { key: 'second', title: 'ShoppingCart' }
       ],
+      // Need a wrapper for this component in state so that 
+      // rerendering happens at appropriate times.
       ShoppingCartViewWrapperVar: () => (
         <ShoppingCartViewWrapper
           components={this.state.storedComponents}
@@ -37,6 +45,7 @@ export default class App extends React.Component {
     });
   };
 
+  // When we shift tabs, get the index and load components from AsyncStorage
   handleIndexChange = (index) => {
     this.setState({ index });
     AsyncStorage.getAllKeys((err1, keys) => {
